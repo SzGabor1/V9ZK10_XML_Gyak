@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
+<!DOCTYPE MJ_orarend SYSTEM "MJ_orarend.dtd">
+
 <V9ZK10_orarend>
     <ora id="1" tipus="elmelet">
         <targy> WEB-Technológiák </targy>
