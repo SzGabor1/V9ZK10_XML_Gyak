@@ -1,6 +1,0 @@
-<!ELEMENT V9ZK10_adatbazis (dolgozo+)>
-<!ELEMENT dolgozo (nev, fizetes)>
-  <!ATTLIST dolgozo
-    kod ID #REQUIRED>
-<!ELEMENT nev (#PCDATA)>
-<!ELEMENT fizetes (#PCDATA)>
