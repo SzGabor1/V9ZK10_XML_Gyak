@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+
+  <!-- Tanév típús azért fontos, mert ez egyfajta dátum, viszont annál különlegesebb azért gondoltam
+  saját típús létrehozására -->
+
+  <xs:simpleType name="tanevTipus">
+    <xs:restriction base="xs:string">
+      <xs:pattern value="\d{4}/\d{4}I(I)?" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- egyetem típús is szintén hasonló okokból fontos -->
+  <xs:simpleType name="egyetemTipus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ME" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <!-- id hosszának specifikálása is fontos hogy ne legyen túl kevés, de túl sok sem belőle,
+  legyenek korlátai -->
+  <xs:simpleType name="idTipus">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="5" />
+      <xs:maxLength value="10" />
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- Ezt egy booleannal is lehetne kezelni, de a magyaroknak jobb ha saját nyelvükön látják a
+  dolgot -->
+  <xs:simpleType name="igenNemTipus">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="igen" />
+      <xs:enumeration value="nem" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
