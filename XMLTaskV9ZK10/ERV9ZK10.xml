@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Autós_cég_ERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+    xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
+    <Vásárló jogkód="01">
+        <email_cím>john.doe123@example.co.uk</email_cím>
+        <cím>
+            <ország>Magyaország</ország>
+            <isz>3881</isz>
+            <város>Abaújszántó</város>
+            <u_hsz>Béke út 8</u_hsz>
+        </cím>
+        <név>Gec Imre</név>
+        <Telefonszám>0620-124-2153</Telefonszám>
+    </Vásárló>
+
+    <Vásárló jogkód="02">
+        <email_cím>john.doe123@example.co.uk</email_cím>
+        <cím>
+            <ország>Magyaország</ország>
+            <isz>3881</isz>
+            <város>Abaújszántó</város>
+            <u_hsz>Béke út 8</u_hsz>
+        </cím>
+        <név>Gec Imre</név>
+        <Telefonszám>0620-124-3153</Telefonszám>
+    </Vásárló>
+
+    <Vásárló jogkód="03">
+        <email_cím>john.doe123@example.co.uk</email_cím>
+        <cím>
+            <ország>Magyaország</ország>
+            <isz>3881</isz>
+            <város>Abaújszántó</város>
+            <u_hsz>Béke út 8</u_hsz>
+        </cím>
+        <név>Gec Imre</név>
+        <Telefonszám>0620-123-3153</Telefonszám>
+        <Telefonszám>0630-423-3153</Telefonszám>
+    </Vásárló>
+
+    <Autós_cég cég_kód="11">
+        <cégnév>Baszom_anyud_kft</cégnév>
+        <Helyrajzi_szám>Máté_anyja</Helyrajzi_szám>
+        <Dolgozók_száma>2</Dolgozók_száma>
+    </Autós_cég>
+
+    <Autós_cég cég_kód="12">
+        <cégnév>Baszom_anyud_kft</cégnév>
+        <Helyrajzi_szám>Máté_anyja</Helyrajzi_szám>
+        <Dolgozók_száma>2</Dolgozók_száma>
+    </Autós_cég>
+
+    <Autós_cég cég_kód="13">
+        <cégnév>Baszom_anyud_kft</cégnév>
+        <Helyrajzi_szám>Máté_anyja</Helyrajzi_szám>
+        <Dolgozók_száma>2</Dolgozók_száma>
+    </Autós_cég>
+
+    <Autós_adatok forgalmi_kód="21" cég_kód="11">
+        <ár>56</ár>
+        <km_óra>123123</km_óra>
+        <státusz>használt</státusz>
+    </Autós_adatok>
+
+    <Autós_adatok forgalmi_kód="22" cég_kód="12">
+        <ár>56</ár>
+        <km_óra>123123</km_óra>
+        <státusz>használt</státusz>
+    </Autós_adatok>
+
+    <Autós_adatok forgalmi_kód="23" cég_kód="13">
+        <ár>56</ár>
+        <km_óra>123123</km_óra>
+        <státusz>használt</státusz>
+    </Autós_adatok>
+
+    <Autós_típus típus_kód="31" forgalmi_kód="21">
+        <Gy_év>1956</Gy_év>
+        <márka>mercedes</márka>
+        <név>feketehasznált_cigány_merci_amit_amúgy_lízingel_a_drogból_fedezett_hitelből</név>
+    </Autós_típus>
+
+    <Autós_típus típus_kód="32" forgalmi_kód="22">
+        <Gy_év>1956</Gy_év>
+        <márka>mercedes</márka>
+        <név>feketehasznált_cigány_merci_amit_amúgy_lízingel</név>
+    </Autós_típus>
+
+    <Autós_típus típus_kód="33" forgalmi_kód="23">
+        <Gy_év>1956</Gy_év>
+        <márka>mercedes</márka>
+        <név>feketehasznált_cigány_merci_amit_amúgy_lízingel</név>
+    </Autós_típus>
+
+    <Vásárlás dátumkód="41" cég_kód="11" vásárló_kód="01">
+        <kezd_dátum>1982-04-01</kezd_dátum>
+    </Vásárlás>
+
+    <Vásárlás dátumkód="42" cég_kód="12" vásárló_kód="02">
+        <kezd_dátum>1982-04-01</kezd_dátum>
+    </Vásárlás>
+
+    <Vásárlás dátumkód="43" cég_kód="13" vásárló_kód="03">
+        <kezd_dátum>1982-04-01</kezd_dátum>
+    </Vásárlás>
+
+    <Számlázás számlakód="51" vásárló_kód="01">
+        <számla_dátum>1982-04-01</számla_dátum>
+        <végösszeg>345342</végösszeg>
+        <jogsiszám>4234234</jogsiszám>
+    </Számlázás>
+
+    <Számlázás számlakód="52" vásárló_kód="02">
+        <számla_dátum>1982-04-01</számla_dátum>
+        <végösszeg>345342</végösszeg>
+        <jogsiszám>4234234</jogsiszám>
+    </Számlázás>
+
+    <Számlázás számlakód="53" vásárló_kód="03">
+        <számla_dátum>1982-04-01</számla_dátum>
+        <végösszeg>345342</végösszeg>
+        <jogsiszám>4234234</jogsiszám>
+    </Számlázás>
+
+
+</Autós_cég_ERV9ZK10>
