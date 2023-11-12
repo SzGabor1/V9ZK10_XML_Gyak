@@ -18,7 +18,7 @@ public class DomWriteV9ZK10 {
             doc.getDocumentElement().normalize();
 
             printNode(doc.getDocumentElement(), 0);
-            writeDocumentToFile(doc, "XMLTaskV9ZK10\\ERV9ZK10_1.json");
+            writeDocumentToFile(doc, "XMLTaskV9ZK10\\ERV9ZK10_1.xml");
 
             System.out.print("Output written to the file successfully.");
         } catch (Exception e) {

@@ -1,180 +1,168 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-    <!--egyszerű
-típusok meghatározása-->
-    <xs:element name="név" type="xs:string" />
-    <xs:element name="cégnév" type="xs:string" />
-    <xs:element name="Helyrajzi_szám" type="xs:string" />
-    <xs:element name="Dolgozók_száma" type="xs:positiveInteger" />
-    <xs:element name="ár" type="xs:positiveInteger" />
-    <xs:element name="km_óra" type="xs:positiveInteger" />
-    <xs:element name="státusz" type="xs:string" />
-    <xs:element name="Gy_év" type="xs:positiveInteger" />
-    <xs:element name="márka" type="xs:string" />
-    <xs:element name="kezd_dátum" type="xs:date" />
-    <xs:element name="számla_dátum" type="xs:date" />
-    <xs:element name="végösszeg" type="xs:positiveInteger" />
-    <xs:element name="jogsiszám" type="xs:positiveInteger" />
+    <!-- Define simple types -->
+    <xs:element name="nev" type="xs:string" />
+    <xs:element name="cegnev" type="xs:string" />
+    <xs:element name="Helyrajzi_szam" type="xs:string" />
+    <xs:element name="Dolgozok_szama" type="xs:positiveInteger" />
+    <xs:element name="ar" type="xs:positiveInteger" />
+    <xs:element name="km_ora" type="xs:positiveInteger" />
+    <xs:element name="statusz" type="xs:string" />
+    <xs:element name="Gy_ev" type="xs:positiveInteger" />
+    <xs:element name="marka" type="xs:string" />
+    <xs:element name="kezd_datum" type="xs:date" />
+    <xs:element name="szamla_datum" type="xs:date" />
+    <xs:element name="vegosszeg" type="xs:positiveInteger" />
+    <xs:element name="jogsiszam" type="xs:positiveInteger" />
 
-    <xs:simpleType name="Email_cím_típus">
+    <xs:simpleType name="Email_cim_tipus">
         <xs:restriction base="xs:string">
             <xs:pattern
                 value="([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})" />
         </xs:restriction>
     </xs:simpleType>
 
-
-    <xs:simpleType name="TelszámTípus">
+    <xs:simpleType name="TelefonszamTipus">
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{4}-\d{3}-\d{4}" />
         </xs:restriction>
     </xs:simpleType>
-    <!--komplex
-típusok meghatározása-->
 
-    <xs:complexType name="vásárló_típus">
+    <!-- Define complex types -->
+    <xs:complexType name="vasarlo_tipus">
         <xs:sequence>
-            <xs:element name="email_cím" type="Email_cím_típus" />
-            <xs:element name="cím">
+            <xs:element name="email_cim" type="Email_cim_tipus" />
+            <xs:element name="cim">
                 <xs:complexType>
                     <xs:sequence>
-                        <xs:element name="ország" type="xs:string" />
+                        <xs:element name="orszag" type="xs:string" />
                         <xs:element name="isz" type="xs:positiveInteger" />
-                        <xs:element name="város" type="xs:string" />
+                        <xs:element name="varos" type="xs:string" />
                         <xs:element name="u_hsz" type="xs:string" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
-            <xs:element ref="név" />
-            <xs:element name="Telefonszám" type="TelszámTípus" maxOccurs="unbounded" />
+            <xs:element ref="nev" />
+            <xs:element name="Telefonszam" type="TelefonszamTipus" maxOccurs="unbounded" />
         </xs:sequence>
-        <xs:attribute name="jogkód" type="xs:integer" use="required" />
+        <xs:attribute name="jogkod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autós_cég_típus">
+    <xs:complexType name="Autos_ceg_tipus">
         <xs:sequence>
-            <xs:element ref="cégnév" />
-            <xs:element ref="Helyrajzi_szám" />
-            <xs:element ref="Dolgozók_száma" />
+            <xs:element ref="cegnev" />
+            <xs:element ref="Helyrajzi_szam" />
+            <xs:element ref="Dolgozok_szama" />
         </xs:sequence>
-        <xs:attribute name="cég_kód" type="xs:integer" use="required" />
+        <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autós_adatok_típus">
+    <xs:complexType name="Autos_adatok_tipus">
         <xs:sequence>
-            <xs:element ref="ár" />
-            <xs:element ref="km_óra" />
-            <xs:element ref="státusz" />
+            <xs:element ref="ar" />
+            <xs:element ref="km_ora" />
+            <xs:element ref="statusz" />
         </xs:sequence>
-        <xs:attribute name="forgalmi_kód" type="xs:integer" use="required" />
-        <xs:attribute name="cég_kód" type="xs:integer" use="required" />
+        <xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
+        <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autós_típus_típus">
+    <xs:complexType name="Autos_tipus_tipus">
         <xs:sequence>
-            <xs:element ref="Gy_év" />
-            <xs:element ref="márka" />
-            <xs:element ref="név" />
+            <xs:element ref="Gy_ev" />
+            <xs:element ref="marka" />
+            <xs:element ref="nev" />
         </xs:sequence>
-        <xs:attribute name="típus_kód" type="xs:integer" use="required" />
-        <xs:attribute name="forgalmi_kód" type="xs:integer" use="required" />
+        <xs:attribute name="tipus_kod" type="xs:integer" use="required" />
+        <xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Vásárlás_típus">
+    <xs:complexType name="Vasarlas_tipus">
         <xs:sequence>
-            <xs:element ref="kezd_dátum" />
+            <xs:element ref="kezd_datum" />
         </xs:sequence>
-        <xs:attribute name="dátumkód" type="xs:integer" use="required" />
-        <xs:attribute name="cég_kód" type="xs:integer" use="required" />
-        <xs:attribute name="vásárló_kód" type="xs:integer" use="required" />
+        <xs:attribute name="datumkod" type="xs:integer" use="required" />
+        <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
+        <xs:attribute name="vasarlo_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Számlázás_típus">
+    <xs:complexType name="Szamlazas_tipus">
         <xs:sequence>
-            <xs:element ref="számla_dátum"></xs:element>
-            <xs:element ref="végösszeg"></xs:element>
-            <xs:element ref="jogsiszám"></xs:element>
+            <xs:element ref="szamla_datum"></xs:element>
+            <xs:element ref="vegosszeg"></xs:element>
+            <xs:element ref="jogsiszam"></xs:element>
         </xs:sequence>
-        <xs:attribute name="számlakód" type="xs:integer" use="required" />
-        <xs:attribute name="vásárló_kód" type="xs:integer" use="required" />
+        <xs:attribute name="szamlakod" type="xs:integer" use="required" />
+        <xs:attribute name="vasarlo_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <!-- Gyökérelemtől az elemek felhasználása -->
-    <xs:element name="Autós_cég_ERV9ZK10">
+    <!-- Root element with keys and keyrefs -->
+    <xs:element name="Autos_ceg_ERV9ZK10">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Vásárló" type="vásárló_típus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autós_cég" type="Autós_cég_típus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autós_adatok" type="Autós_adatok_típus" minOccurs="0"
+                <xs:element name="Vasarlo" type="vasarlo_tipus" minOccurs="0" maxOccurs="100" />
+                <xs:element name="Autos_ceg" type="Autos_ceg_tipus" minOccurs="0" maxOccurs="100" />
+                <xs:element name="Autos_adatok" type="Autos_adatok_tipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Autós_típus" type="Autós_típus_típus" minOccurs="0"
+                <xs:element name="Autos_tipus" type="Autos_tipus_tipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Vásárlás" type="Vásárlás_típus" minOccurs="0"
+                <xs:element name="Vasarlas" type="Vasarlas_tipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Számlázás" type="Számlázás_típus" minOccurs="0"
+                <xs:element name="Szamlazas" type="Szamlazas_tipus" minOccurs="0"
                     maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
-        <!--Elsődleges
-        kulcsok-->
-        <xs:key name="vásárló_kulcs">
-            <xs:selector xpath="Vásárló" />
-            <xs:field xpath="@jogkód" />
+        <!-- Primary keys -->
+        <xs:key name="vasarlo_kulcs">
+            <xs:selector xpath="Vasarlo" />
+            <xs:field xpath="@jogkod" />
         </xs:key>
-        <xs:key name="Autós_cég_kulcs">
-            <xs:selector xpath="Autós_cég" />
-            <xs:field xpath="@cég_kód" />
+        <xs:key name="Autos_ceg_kulcs">
+            <xs:selector xpath="Autos_ceg" />
+            <xs:field xpath="@ceg_kod" />
         </xs:key>
-        <xs:key name="Autós_adatok_kulcs">
-            <xs:selector xpath="Autós_adatok" />
-            <xs:field xpath="@forgalmi_kód" />
+        <xs:key name="Autos_adatok_kulcs">
+            <xs:selector xpath="Autos_adatok" />
+            <xs:field xpath="@forgalmi_kod" />
         </xs:key>
-        <xs:key name="Autós_típus_kulcs">
-            <xs:selector xpath="Autós_típus" />
-            <xs:field xpath="@típus_kód" />
+        <xs:key name="Autos_tipus_kulcs">
+            <xs:selector xpath="Autos_tipus" />
+            <xs:field xpath="@tipus_kod" />
         </xs:key>
-        <xs:key name="Vásárlás_kulcs">
-            <xs:selector xpath="Vásárlás" />
-            <xs:field xpath="@dátumkód" />
+        <xs:key name="Vasarlas_kulcs">
+            <xs:selector xpath="Vasarlas" />
+            <xs:field xpath="@datumkod" />
         </xs:key>
-        <xs:key name="Számlázás_kulcs">
-            <xs:selector xpath="Számlázás" />
-            <xs:field xpath="@számlakód" />
+        <xs:key name="Szamlazas_kulcs">
+            <xs:selector xpath="Szamlazas" />
+            <xs:field xpath="@szamlakod" />
         </xs:key>
-        <!--Másodlagos
-        kulcsok-->
-
-        <xs:keyref name="Autós_cég_cég_kulcs" refer="Autós_cég_kulcs">
-            <xs:selector xpath="Autós_adatok" />
-            <xs:field xpath="@cég_kód" />
+        <!-- Foreign keys -->
+        <xs:keyref name="Autos_ceg_ceg_kulcs" refer="Autos_ceg_kulcs">
+            <xs:selector xpath="Autos_adatok" />
+            <xs:field xpath="@ceg_kod" />
         </xs:keyref>
-
-        <xs:keyref name="Autóí_típus_autós_adatok_kulcs" refer="Autós_adatok_kulcs">
-            <xs:selector xpath="Autós_típus" />
-            <xs:field xpath="@forgalmi_kód" />
+        <xs:keyref name="Auto_tipus_autos_adatok_kulcs" refer="Autos_adatok_kulcs">
+            <xs:selector xpath="Autos_tipus" />
+            <xs:field xpath="@forgalmi_kod" />
         </xs:keyref>
-
-        <xs:keyref name="Vásárlás_cég_kulcs" refer="Autós_cég_kulcs">
-            <xs:selector xpath="Vásárlás" />
-            <xs:field xpath="@cég_kód" />
+        <xs:keyref name="Vasarlas_ceg_kulcs" refer="Autos_ceg_kulcs">
+            <xs:selector xpath="Vasarlas" />
+            <xs:field xpath="@ceg_kod" />
         </xs:keyref>
-
-        <xs:keyref name="Vásárlás_vásárló_kulcs" refer="vásárló_kulcs">
-            <xs:selector xpath="Vásárlás" />
-            <xs:field xpath="@vásárló_kód" />
+        <xs:keyref name="Vasarlas_vasarlo_kulcs" refer="vasarlo_kulcs">
+            <xs:selector xpath="Vasarlas" />
+            <xs:field xpath="@vasarlo_kod" />
         </xs:keyref>
-
-        <xs:keyref name="Számlázás_vásárló_kulcs" refer="vásárló_kulcs">
-            <xs:selector xpath="Számlázás" />
-            <xs:field xpath="@vásárló_kód" />
+        <xs:keyref name="Szamlazas_vasarlo_kulcs" refer="vasarlo_kulcs">
+            <xs:selector xpath="Szamlazas" />
+            <xs:field xpath="@vasarlo_kod" />
         </xs:keyref>
-
-        <!-- Az 1:1 kapcsolat megvalósítás -->
-        <xs:unique name="Autós_adatok_Autó_típusok_egyegy">
-            <xs:selector xpath="Autós_típus" />
-            <xs:field xpath="@forgalmi_kód" />
+        <!-- Unique constraint for 1:1 relationship -->
+        <xs:unique name="Autos_adatok_Auto_tipusok_egyegy">
+            <xs:selector xpath="Autos_tipus" />
+            <xs:field xpath="@forgalmi_kod" />
         </xs:unique>
-
     </xs:element>
 </xs:schema>
