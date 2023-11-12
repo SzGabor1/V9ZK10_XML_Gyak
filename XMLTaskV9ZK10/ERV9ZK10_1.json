@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Autós_cég_ERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
+      
+  <Vásárló jogkód="01">
+            
+    <email_cím>jane.smith456@example.com</email_cím>
+            
+    <cím>
+                  
+      <ország>Magyarország</ország>
+                  
+      <isz>1234</isz>
+                  
+      <város>Budapest</város>
+                  
+      <u_hsz>Kossuth utca 10</u_hsz>
+              
+    </cím>
+            
+    <név>Kovács Péter</név>
+            
+    <Telefonszám>0630-987-6543</Telefonszám>
+        
+  </Vásárló>
+      
+  <Vásárló jogkód="02">
+            
+    <email_cím>john.doe456@example.co.uk</email_cím>
+            
+    <cím>
+                  
+      <ország>Magyarország</ország>
+                  
+      <isz>5678</isz>
+                  
+      <város>Szeged</város>
+                  
+      <u_hsz>Rákóczi út 5</u_hsz>
+              
+    </cím>
+            
+    <név>Nagy Anna</név>
+            
+    <Telefonszám>0620-765-4321</Telefonszám>
+        
+  </Vásárló>
+      
+  <Vásárló jogkód="03">
+            
+    <email_cím>mark.johnson789@example.co.uk</email_cím>
+            
+    <cím>
+                  
+      <ország>Magyarország</ország>
+                  
+      <isz>9876</isz>
+                  
+      <város>Debrecen</város>
+                  
+      <u_hsz>Petőfi tér 3</u_hsz>
+              
+    </cím>
+            
+    <név>Kiss Éva</név>
+            
+    <Telefonszám>0612-345-6789</Telefonszám>
+            
+    <Telefonszám>0630-987-6543</Telefonszám>
+        
+  </Vásárló>
+      
+  <Autós_cég cég_kód="11">
+            
+    <cégnév>AutaPlusz Kft.</cégnév>
+            
+    <Helyrajzi_szám>BUD-123456</Helyrajzi_szám>
+            
+    <Dolgozók_száma>15</Dolgozók_száma>
+        
+  </Autós_cég>
+      
+  <Autós_cég cég_kód="12">
+            
+    <cégnév>Autóvilág Bt.</cégnév>
+            
+    <Helyrajzi_szám>DEB-654321</Helyrajzi_szám>
+            
+    <Dolgozók_száma>10</Dolgozók_száma>
+        
+  </Autós_cég>
+      
+  <Autós_cég cég_kód="13">
+            
+    <cégnév>Kocsis Kft.</cégnév>
+            
+    <Helyrajzi_szám>SZEG-987654</Helyrajzi_szám>
+            
+    <Dolgozók_száma>20</Dolgozók_száma>
+        
+  </Autós_cég>
+      
+  <Autós_adatok cég_kód="11" forgalmi_kód="21">
+            
+    <ár>45000</ár>
+            
+    <km_óra>78900</km_óra>
+            
+    <státusz>új</státusz>
+        
+  </Autós_adatok>
+      
+  <Autós_adatok cég_kód="12" forgalmi_kód="22">
+            
+    <ár>55000</ár>
+            
+    <km_óra>65400</km_óra>
+            
+    <státusz>használt</státusz>
+        
+  </Autós_adatok>
+      
+  <Autós_adatok cég_kód="13" forgalmi_kód="23">
+            
+    <ár>60000</ár>
+            
+    <km_óra>89000</km_óra>
+            
+    <státusz>használt</státusz>
+        
+  </Autós_adatok>
+      
+  <Autós_típus forgalmi_kód="21" típus_kód="31">
+            
+    <Gy_év>2022</Gy_év>
+            
+    <márka>Toyota</márka>
+            
+    <név>Corolla Hybrid</név>
+        
+  </Autós_típus>
+      
+  <Autós_típus forgalmi_kód="22" típus_kód="32">
+            
+    <Gy_év>2021</Gy_év>
+            
+    <márka>Volkswagen</márka>
+            
+    <név>Golf GTI</név>
+        
+  </Autós_típus>
+      
+  <Autós_típus forgalmi_kód="23" típus_kód="33">
+            
+    <Gy_év>2020</Gy_év>
+            
+    <márka>Ford</márka>
+            
+    <név>Focus Titanium</név>
+        
+  </Autós_típus>
+      
+  <Vásárlás cég_kód="11" dátumkód="41" vásárló_kód="01">
+            
+    <kezd_dátum>2023-01-15</kezd_dátum>
+        
+  </Vásárlás>
+      
+  <Vásárlás cég_kód="12" dátumkód="42" vásárló_kód="02">
+            
+    <kezd_dátum>2023-02-28</kezd_dátum>
+        
+  </Vásárlás>
+      
+  <Vásárlás cég_kód="13" dátumkód="43" vásárló_kód="03">
+            
+    <kezd_dátum>2023-03-10</kezd_dátum>
+        
+  </Vásárlás>
+      
+  <Számlázás számlakód="51" vásárló_kód="01">
+            
+    <számla_dátum>2023-01-20</számla_dátum>
+            
+    <végösszeg>55000</végösszeg>
+            
+    <jogsiszám>54321</jogsiszám>
+        
+  </Számlázás>
+      
+  <Számlázás számlakód="52" vásárló_kód="02">
+            
+    <számla_dátum>2023-03-01</számla_dátum>
+            
+    <végösszeg>60000</végösszeg>
+            
+    <jogsiszám>65432</jogsiszám>
+        
+  </Számlázás>
+      
+  <Számlázás számlakód="53" vásárló_kód="03">
+            
+    <számla_dátum>2023-04-12</számla_dátum>
+            
+    <végösszeg>70000</végösszeg>
+            
+    <jogsiszám>76543</jogsiszám>
+        
+  </Számlázás>
+  
+</Autós_cég_ERV9ZK10>
