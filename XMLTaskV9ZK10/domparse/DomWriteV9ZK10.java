@@ -32,55 +32,36 @@ public class DomWriteV9ZK10 {
             NamedNodeMap attributes = node.getAttributes();
 
             printIndentation(depth);
-            System.out.print("\"" + tagName + "\"");
+            System.out.print("<" + tagName);
 
             // Print attributes if present
             if (attributes.getLength() > 0) {
-                System.out.print(" (");
                 for (int i = 0; i < attributes.getLength(); i++) {
                     Node attribute = attributes.item(i);
-                    System.out.print(attribute.getNodeName() + "=\"" + attribute.getTextContent() + "\"");
-                    if (i < attributes.getLength() - 1) {
-                        System.out.print(" ");
-                    }
+                    System.out.print(" " + attribute.getNodeName() + "=\"" + attribute.getTextContent() + "\"");
                 }
-                System.out.print(")");
             }
 
             NodeList children = node.getChildNodes();
             // If there are child elements, print them
             if (children.getLength() > 1) {
-                System.out.println(" : {");
+                System.out.println(">");
                 for (int i = 0; i < children.getLength(); i++) {
                     Node child = children.item(i);
                     if (child.getNodeType() == Node.ELEMENT_NODE) {
-                        String childTagName = child.getNodeName();
-                        String childTextContent = child.getTextContent().trim();
-
-                        // Adjust indentation based on the desired output structure
-                        printIndentation(depth + 1);
-
-                        // Check if the child node has nested elements
-                        if (child.getChildNodes().getLength() > 1) {
-                            System.out.println("\"" + childTagName + "\" : {");
-                            printNode(child, depth + 2);
-                            printIndentation(depth + 1);
-                            System.out.println("},");
-                        } else {
-                            System.out.println("\"" + childTagName + "\" : \"" + childTextContent + "\",");
-                        }
+                        printNode(child, depth + 1);
                     }
                 }
                 printIndentation(depth);
-                System.out.println("},");
-
+                System.out.println("</" + tagName + ">");
+                System.out.println("");
             } else {
                 // If no child elements, print the text content
                 String textContent = node.getTextContent().trim();
                 if (!textContent.isEmpty()) {
-                    System.out.println(" : \"" + textContent + "\",");
+                    System.out.println(">" + textContent + "</" + tagName + ">");
                 } else {
-                    System.out.println(",");
+                    System.out.println("/>");
                 }
             }
         }
@@ -88,7 +69,7 @@ public class DomWriteV9ZK10 {
 
     private static void printIndentation(int depth) {
         for (int i = 0; i < depth; i++) {
-            System.out.print(" ");
+            System.out.print("  ");
         }
     }
 

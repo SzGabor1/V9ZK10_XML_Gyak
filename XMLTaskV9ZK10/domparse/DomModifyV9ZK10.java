@@ -22,13 +22,12 @@ public class DomModifyV9ZK10 {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 
-            // Parse the XML file
             Document doc = dBuilder.parse(xmlFile);
 
             // első vásárló városának módosítása
             NodeList vasarloList = doc.getElementsByTagName("Vasarlo");
             Element vasarlo = (Element) vasarloList.item(0);
-            vasarlo.getElementsByTagName("varos").item(0).setTextContent("Budapest"); // Modify the city name
+            vasarlo.getElementsByTagName("varos").item(0).setTextContent("Budapest");
 
             // az első autó adatok árának módosítása
             NodeList autosAdatokList = doc.getElementsByTagName("Autos_adatok");
