@@ -38,9 +38,9 @@ public class DomReadV9ZK10 {
 
                         // kiirja az az elemek nevét
                         printNodeList(doc.getElementsByTagName("Vasarlo"), writer);
-                        printNodeList(doc.getElementsByTagName("Autos_ceg"), writer);
-                        printNodeList(doc.getElementsByTagName("Autos_adatok"), writer);
-                        printNodeList(doc.getElementsByTagName("Autos_tipus"), writer);
+                        printNodeList(doc.getElementsByTagName("AutosCeg"), writer);
+                        printNodeList(doc.getElementsByTagName("AutosAdatok"), writer);
+                        printNodeList(doc.getElementsByTagName("AutosTipus"), writer);
                         printNodeList(doc.getElementsByTagName("Vasarlas"), writer);
                         printNodeList(doc.getElementsByTagName("Szamlazas"), writer);
 

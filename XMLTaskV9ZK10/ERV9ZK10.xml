@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Autos_ceg_ERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+<AutosCegERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
     xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
     <Vasarlo jogkod="01">
         <email_cim>jane.smith456@example.com</email_cim>
@@ -7,7 +7,7 @@
             <orszag>Magyarorszag</orszag>
             <isz>1234</isz>
             <varos>Budapest</varos>
-            <u_hsz>Kossuth utca 10</u_hsz>
+            <uHsz>Kossuth utca 10</uHsz>
         </cim>
         <nev>Kovacs Peter</nev>
         <Telefonszam>0630-987-6543</Telefonszam>
@@ -20,10 +20,11 @@
             <orszag>Magyarorszag</orszag>
             <isz>5678</isz>
             <varos>Szeged</varos>
-            <u_hsz>Rakoczi ut 5</u_hsz>
+            <uHsz>Rakoczi ut 5</uHsz>
         </cim>
         <nev>Nagy Anna</nev>
         <Telefonszam>0620-765-4321</Telefonszam>
+        <Telefonszam>0620-765-0000</Telefonszam>
     </Vasarlo>
 
     <Vasarlo jogkod="03">
@@ -32,66 +33,66 @@
             <orszag>Magyarorszag</orszag>
             <isz>9876</isz>
             <varos>Debrecen</varos>
-            <u_hsz>Petofi ter 3</u_hsz>
+            <uHsz>Petofi ter 3</uHsz>
         </cim>
         <nev>Kiss Eva</nev>
         <Telefonszam>0612-345-6789</Telefonszam>
         <Telefonszam>0630-987-6543</Telefonszam>
     </Vasarlo>
 
-    <Autos_ceg ceg_kod="11">
+    <AutosCeg ceg_kod="11">
         <cegnev>AutaPlusz Kft.</cegnev>
         <helyrajziSzam>BUD-123456</helyrajziSzam>
         <dolgozokSzama>15</dolgozokSzama>
-    </Autos_ceg>
+    </AutosCeg>
 
-    <Autos_ceg ceg_kod="12">
+    <AutosCeg ceg_kod="12">
         <cegnev>Autovilag Bt.</cegnev>
         <helyrajziSzam>DEB-654321</helyrajziSzam>
         <dolgozokSzama>10</dolgozokSzama>
-    </Autos_ceg>
+    </AutosCeg>
 
-    <Autos_ceg ceg_kod="13">
+    <AutosCeg ceg_kod="13">
         <cegnev>Kocsis Kft.</cegnev>
         <helyrajziSzam>SZEG-987654</helyrajziSzam>
         <dolgozokSzama>20</dolgozokSzama>
-    </Autos_ceg>
+    </AutosCeg>
 
-    <Autos_adatok forgalmi_kod="21" ceg_kod="11">
+    <AutosAdatok forgalmi_kod="21" ceg_kod="11">
         <ar>45000</ar>
         <kmOra>78900</kmOra>
         <statusz>uj</statusz>
-    </Autos_adatok>
+    </AutosAdatok>
 
-    <Autos_adatok forgalmi_kod="22" ceg_kod="11">
+    <AutosAdatok forgalmi_kod="22" ceg_kod="11">
         <ar>55000</ar>
         <kmOra>65400</kmOra>
         <statusz>hasznalt</statusz>
-    </Autos_adatok>
+    </AutosAdatok>
 
-    <Autos_adatok forgalmi_kod="23" ceg_kod="13">
+    <AutosAdatok forgalmi_kod="23" ceg_kod="13">
         <ar>60000</ar>
         <kmOra>89000</kmOra>
         <statusz>hasznalt</statusz>
-    </Autos_adatok>
+    </AutosAdatok>
 
-    <Autos_tipus tipus_kod="31" forgalmi_kod="21">
+    <AutosTipus tipus_kod="31" forgalmi_kod="21">
         <gyartasiEv>2022</gyartasiEv>
         <marka>Toyota</marka>
         <nev>Corolla Hybrid</nev>
-    </Autos_tipus>
+    </AutosTipus>
 
-    <Autos_tipus tipus_kod="32" forgalmi_kod="22">
+    <AutosTipus tipus_kod="32" forgalmi_kod="22">
         <gyartasiEv>2021</gyartasiEv>
         <marka>Volkswagen</marka>
         <nev>Golf GTI</nev>
-    </Autos_tipus>
+    </AutosTipus>
 
-    <Autos_tipus tipus_kod="33" forgalmi_kod="23">
+    <AutosTipus tipus_kod="33" forgalmi_kod="23">
         <gyartasiEv>2020</gyartasiEv>
         <marka>Ford</marka>
         <nev>Focus Titanium</nev>
-    </Autos_tipus>
+    </AutosTipus>
 
     <Vasarlas datumkod="41" ceg_kod="11" vasarlo_kod="01">
         <kezdDatum>2023-01-15</kezdDatum>
@@ -123,4 +124,4 @@
         <jogsiszam>76543</jogsiszam>
     </Szamlazas>
 
-</Autos_ceg_ERV9ZK10>
+</AutosCegERV9ZK10>

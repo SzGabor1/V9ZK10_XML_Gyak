@@ -39,7 +39,7 @@
                         <xs:element name="orszag" type="xs:string" />
                         <xs:element name="isz" type="xs:positiveInteger" />
                         <xs:element name="varos" type="xs:string" />
-                        <xs:element name="u_hsz" type="xs:string" />
+                        <xs:element name="uHsz" type="xs:string" />
                     </xs:sequence>
                 </xs:complexType>
             </xs:element>
@@ -98,14 +98,14 @@
     </xs:complexType>
 
     <!-- Root element with keys and keyrefs -->
-    <xs:element name="Autos_ceg_ERV9ZK10">
+    <xs:element name="AutosCegERV9ZK10">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="Vasarlo" type="vasarloTipus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autos_ceg" type="autosCegTipus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autos_adatok" type="autosAdatokTipus" minOccurs="0"
+                <xs:element name="AutosCeg" type="autosCegTipus" minOccurs="0" maxOccurs="100" />
+                <xs:element name="AutosAdatok" type="autosAdatokTipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Autos_tipus" type="autosTipusTipus" minOccurs="0"
+                <xs:element name="AutosTipus" type="autosTipusTipus" minOccurs="0"
                     maxOccurs="unbounded" />
                 <xs:element name="Vasarlas" type="vasarlasTipus" minOccurs="0"
                     maxOccurs="unbounded" />
@@ -118,16 +118,16 @@
             <xs:selector xpath="Vasarlo" />
             <xs:field xpath="@jogkod" />
         </xs:key>
-        <xs:key name="Autos_ceg_kulcs">
-            <xs:selector xpath="Autos_ceg" />
+        <xs:key name="AutosCeg_kulcs">
+            <xs:selector xpath="AutosCeg" />
             <xs:field xpath="@ceg_kod" />
         </xs:key>
-        <xs:key name="Autos_adatok_kulcs">
-            <xs:selector xpath="Autos_adatok" />
+        <xs:key name="AutosAdatok_kulcs">
+            <xs:selector xpath="AutosAdatok" />
             <xs:field xpath="@forgalmi_kod" />
         </xs:key>
-        <xs:key name="Autos_tipus_kulcs">
-            <xs:selector xpath="Autos_tipus" />
+        <xs:key name="AutosTipus_kulcs">
+            <xs:selector xpath="AutosTipus" />
             <xs:field xpath="@tipus_kod" />
         </xs:key>
         <xs:key name="Vasarlas_kulcs">
@@ -139,15 +139,15 @@
             <xs:field xpath="@szamlakod" />
         </xs:key>
         <!-- Foreign keys -->
-        <xs:keyref name="Autos_ceg_ceg_kulcs" refer="Autos_ceg_kulcs">
-            <xs:selector xpath="Autos_adatok" />
+        <xs:keyref name="AutosCeg_ceg_kulcs" refer="AutosCeg_kulcs">
+            <xs:selector xpath="AutosAdatok" />
             <xs:field xpath="@ceg_kod" />
         </xs:keyref>
-        <xs:keyref name="Auto_tipus_autos_adatok_kulcs" refer="Autos_adatok_kulcs">
-            <xs:selector xpath="Autos_tipus" />
+        <xs:keyref name="Auto_tipus_AutosAdatok_kulcs" refer="AutosAdatok_kulcs">
+            <xs:selector xpath="AutosTipus" />
             <xs:field xpath="@forgalmi_kod" />
         </xs:keyref>
-        <xs:keyref name="Vasarlas_ceg_kulcs" refer="Autos_ceg_kulcs">
+        <xs:keyref name="Vasarlas_ceg_kulcs" refer="AutosCeg_kulcs">
             <xs:selector xpath="Vasarlas" />
             <xs:field xpath="@ceg_kod" />
         </xs:keyref>
@@ -160,8 +160,8 @@
             <xs:field xpath="@vasarlo_kod" />
         </xs:keyref>
         <!-- Unique constraint for 1:1 relationship -->
-        <xs:unique name="Autos_adatok_Auto_tipusok_egyegy">
-            <xs:selector xpath="Autos_tipus" />
+        <xs:unique name="AutosAdatok_Auto_tipusok_egyegy">
+            <xs:selector xpath="AutosTipus" />
             <xs:field xpath="@forgalmi_kod" />
         </xs:unique>
     </xs:element>
