@@ -15,15 +15,14 @@ public class DomReadV9ZK10 {
                         Document doc = dBuilder.parse(inputFile);
                         doc.getDocumentElement().normalize();
 
-                        // Output to ERV9ZK10_1.xml
                         File outputFile = new File("XMLTaskV9ZK10\\ERV9ZK10_1.xml");
                         PrintWriter writer = new PrintWriter(new FileWriter(outputFile, true));
 
-                        // Print XML declaration
+                        // kiirja az XML prológust
                         System.out.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
                         writer.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 
-                        // Print root element
+                        // Gyökér elem kiiratása
                         Element rootElement = doc.getDocumentElement();
                         String rootName = rootElement.getTagName();
                         StringJoiner rootAttributes = new StringJoiner(" ");
@@ -37,7 +36,7 @@ public class DomReadV9ZK10 {
                         System.out.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
                         writer.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
 
-                        // Print specific elements
+                        // kiirja az az elemek nevét
                         printNodeList(doc.getElementsByTagName("Vasarlo"), writer);
                         printNodeList(doc.getElementsByTagName("Autos_ceg"), writer);
                         printNodeList(doc.getElementsByTagName("Autos_adatok"), writer);
@@ -45,7 +44,7 @@ public class DomReadV9ZK10 {
                         printNodeList(doc.getElementsByTagName("Vasarlas"), writer);
                         printNodeList(doc.getElementsByTagName("Szamlazas"), writer);
 
-                        // Close root element
+                        // Lezárja az elemet
                         System.out.println("</" + rootName + ">");
                         writer.append("</" + rootName + ">");
 

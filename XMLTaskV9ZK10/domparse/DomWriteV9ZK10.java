@@ -34,7 +34,7 @@ public class DomWriteV9ZK10 {
             printIndentation(depth);
             System.out.print("<" + tagName);
 
-            // Print attributes if present
+            // Kiirja az attribútomot ha létezik
             if (attributes.getLength() > 0) {
                 for (int i = 0; i < attributes.getLength(); i++) {
                     Node attribute = attributes.item(i);
@@ -56,7 +56,7 @@ public class DomWriteV9ZK10 {
                 System.out.println("</" + tagName + ">");
                 System.out.println("");
             } else {
-                // If no child elements, print the text content
+                // Ha nincs gyerek elem kiirja a tartalmat
                 String textContent = node.getTextContent().trim();
                 if (!textContent.isEmpty()) {
                     System.out.println(">" + textContent + "</" + tagName + ">");
@@ -77,8 +77,8 @@ public class DomWriteV9ZK10 {
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         Transformer transformer = transformerFactory.newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // Adjust the indent amount as
-                                                                                         // needed
+        transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2"); // Behúzás szabályozása
+
         DOMSource source = new DOMSource(doc);
         StreamResult result = new StreamResult(new File(filename));
         transformer.transform(source, result);
