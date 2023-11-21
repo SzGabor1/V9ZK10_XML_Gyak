@@ -4,35 +4,35 @@
     <!-- Define simple types -->
     <xs:element name="nev" type="xs:string" />
     <xs:element name="cegnev" type="xs:string" />
-    <xs:element name="Helyrajzi_szam" type="xs:string" />
-    <xs:element name="Dolgozok_szama" type="xs:positiveInteger" />
+    <xs:element name="helyrajziSzam" type="xs:string" />
+    <xs:element name="dolgozokSzama" type="xs:positiveInteger" />
     <xs:element name="ar" type="xs:positiveInteger" />
-    <xs:element name="km_ora" type="xs:positiveInteger" />
+    <xs:element name="kmOra" type="xs:positiveInteger" />
     <xs:element name="statusz" type="xs:string" />
-    <xs:element name="Gy_ev" type="xs:positiveInteger" />
+    <xs:element name="gyartasiEv" type="xs:positiveInteger" />
     <xs:element name="marka" type="xs:string" />
-    <xs:element name="kezd_datum" type="xs:date" />
-    <xs:element name="szamla_datum" type="xs:date" />
+    <xs:element name="kezdDatum" type="xs:date" />
+    <xs:element name="szamlaDatum" type="xs:date" />
     <xs:element name="vegosszeg" type="xs:positiveInteger" />
     <xs:element name="jogsiszam" type="xs:positiveInteger" />
 
-    <xs:simpleType name="Email_cim_tipus">
+    <xs:simpleType name="emailCimTipus">
         <xs:restriction base="xs:string">
             <xs:pattern
                 value="([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})" />
         </xs:restriction>
     </xs:simpleType>
 
-    <xs:simpleType name="TelefonszamTipus">
+    <xs:simpleType name="telefonszamTipus">
         <xs:restriction base="xs:string">
             <xs:pattern value="\d{4}-\d{3}-\d{4}" />
         </xs:restriction>
     </xs:simpleType>
 
     <!-- Define complex types -->
-    <xs:complexType name="vasarlo_tipus">
+    <xs:complexType name="vasarloTipus">
         <xs:sequence>
-            <xs:element name="email_cim" type="Email_cim_tipus" />
+            <xs:element name="email_cim" type="emailCimTipus" />
             <xs:element name="cim">
                 <xs:complexType>
                     <xs:sequence>
@@ -44,33 +44,33 @@
                 </xs:complexType>
             </xs:element>
             <xs:element ref="nev" />
-            <xs:element name="Telefonszam" type="TelefonszamTipus" maxOccurs="unbounded" />
+            <xs:element name="Telefonszam" type="telefonszamTipus" maxOccurs="unbounded" />
         </xs:sequence>
         <xs:attribute name="jogkod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autos_ceg_tipus">
+    <xs:complexType name="autosCegTipus">
         <xs:sequence>
             <xs:element ref="cegnev" />
-            <xs:element ref="Helyrajzi_szam" />
-            <xs:element ref="Dolgozok_szama" />
+            <xs:element ref="helyrajziSzam" />
+            <xs:element ref="dolgozokSzama" />
         </xs:sequence>
         <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autos_adatok_tipus">
+    <xs:complexType name="autosAdatokTipus">
         <xs:sequence>
             <xs:element ref="ar" />
-            <xs:element ref="km_ora" />
+            <xs:element ref="kmOra" />
             <xs:element ref="statusz" />
         </xs:sequence>
         <xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
         <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Autos_tipus_tipus">
+    <xs:complexType name="autosTipusTipus">
         <xs:sequence>
-            <xs:element ref="Gy_ev" />
+            <xs:element ref="gyartasiEv" />
             <xs:element ref="marka" />
             <xs:element ref="nev" />
         </xs:sequence>
@@ -78,18 +78,18 @@
         <xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Vasarlas_tipus">
+    <xs:complexType name="vasarlasTipus">
         <xs:sequence>
-            <xs:element ref="kezd_datum" />
+            <xs:element ref="kezdDatum" />
         </xs:sequence>
         <xs:attribute name="datumkod" type="xs:integer" use="required" />
         <xs:attribute name="ceg_kod" type="xs:integer" use="required" />
         <xs:attribute name="vasarlo_kod" type="xs:integer" use="required" />
     </xs:complexType>
 
-    <xs:complexType name="Szamlazas_tipus">
+    <xs:complexType name="szamlazasTipus">
         <xs:sequence>
-            <xs:element ref="szamla_datum"></xs:element>
+            <xs:element ref="szamlaDatum"></xs:element>
             <xs:element ref="vegosszeg"></xs:element>
             <xs:element ref="jogsiszam"></xs:element>
         </xs:sequence>
@@ -101,15 +101,15 @@
     <xs:element name="Autos_ceg_ERV9ZK10">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="Vasarlo" type="vasarlo_tipus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autos_ceg" type="Autos_ceg_tipus" minOccurs="0" maxOccurs="100" />
-                <xs:element name="Autos_adatok" type="Autos_adatok_tipus" minOccurs="0"
+                <xs:element name="Vasarlo" type="vasarloTipus" minOccurs="0" maxOccurs="100" />
+                <xs:element name="Autos_ceg" type="autosCegTipus" minOccurs="0" maxOccurs="100" />
+                <xs:element name="Autos_adatok" type="autosAdatokTipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Autos_tipus" type="Autos_tipus_tipus" minOccurs="0"
+                <xs:element name="Autos_tipus" type="autosTipusTipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Vasarlas" type="Vasarlas_tipus" minOccurs="0"
+                <xs:element name="Vasarlas" type="vasarlasTipus" minOccurs="0"
                     maxOccurs="unbounded" />
-                <xs:element name="Szamlazas" type="Szamlazas_tipus" minOccurs="0"
+                <xs:element name="Szamlazas" type="szamlazasTipus" minOccurs="0"
                     maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>

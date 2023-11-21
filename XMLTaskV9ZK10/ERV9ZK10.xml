@@ -11,6 +11,7 @@
         </cim>
         <nev>Kovacs Peter</nev>
         <Telefonszam>0630-987-6543</Telefonszam>
+        <Telefonszam>0630-987-6453</Telefonszam>
     </Vasarlo>
 
     <Vasarlo jogkod="02">
@@ -40,84 +41,84 @@
 
     <Autos_ceg ceg_kod="11">
         <cegnev>AutaPlusz Kft.</cegnev>
-        <Helyrajzi_szam>BUD-123456</Helyrajzi_szam>
-        <Dolgozok_szama>15</Dolgozok_szama>
+        <helyrajziSzam>BUD-123456</helyrajziSzam>
+        <dolgozokSzama>15</dolgozokSzama>
     </Autos_ceg>
 
     <Autos_ceg ceg_kod="12">
         <cegnev>Autovilag Bt.</cegnev>
-        <Helyrajzi_szam>DEB-654321</Helyrajzi_szam>
-        <Dolgozok_szama>10</Dolgozok_szama>
+        <helyrajziSzam>DEB-654321</helyrajziSzam>
+        <dolgozokSzama>10</dolgozokSzama>
     </Autos_ceg>
 
     <Autos_ceg ceg_kod="13">
         <cegnev>Kocsis Kft.</cegnev>
-        <Helyrajzi_szam>SZEG-987654</Helyrajzi_szam>
-        <Dolgozok_szama>20</Dolgozok_szama>
+        <helyrajziSzam>SZEG-987654</helyrajziSzam>
+        <dolgozokSzama>20</dolgozokSzama>
     </Autos_ceg>
 
     <Autos_adatok forgalmi_kod="21" ceg_kod="11">
         <ar>45000</ar>
-        <km_ora>78900</km_ora>
+        <kmOra>78900</kmOra>
         <statusz>uj</statusz>
     </Autos_adatok>
 
     <Autos_adatok forgalmi_kod="22" ceg_kod="11">
         <ar>55000</ar>
-        <km_ora>65400</km_ora>
+        <kmOra>65400</kmOra>
         <statusz>hasznalt</statusz>
     </Autos_adatok>
 
     <Autos_adatok forgalmi_kod="23" ceg_kod="13">
         <ar>60000</ar>
-        <km_ora>89000</km_ora>
+        <kmOra>89000</kmOra>
         <statusz>hasznalt</statusz>
     </Autos_adatok>
 
     <Autos_tipus tipus_kod="31" forgalmi_kod="21">
-        <Gy_ev>2022</Gy_ev>
+        <gyartasiEv>2022</gyartasiEv>
         <marka>Toyota</marka>
         <nev>Corolla Hybrid</nev>
     </Autos_tipus>
 
     <Autos_tipus tipus_kod="32" forgalmi_kod="22">
-        <Gy_ev>2021</Gy_ev>
+        <gyartasiEv>2021</gyartasiEv>
         <marka>Volkswagen</marka>
         <nev>Golf GTI</nev>
     </Autos_tipus>
 
     <Autos_tipus tipus_kod="33" forgalmi_kod="23">
-        <Gy_ev>2020</Gy_ev>
+        <gyartasiEv>2020</gyartasiEv>
         <marka>Ford</marka>
         <nev>Focus Titanium</nev>
     </Autos_tipus>
 
     <Vasarlas datumkod="41" ceg_kod="11" vasarlo_kod="01">
-        <kezd_datum>2023-01-15</kezd_datum>
+        <kezdDatum>2023-01-15</kezdDatum>
     </Vasarlas>
 
     <Vasarlas datumkod="42" ceg_kod="12" vasarlo_kod="02">
-        <kezd_datum>2023-02-28</kezd_datum>
+        <kezdDatum>2023-02-28</kezdDatum>
     </Vasarlas>
 
     <Vasarlas datumkod="43" ceg_kod="13" vasarlo_kod="03">
-        <kezd_datum>2023-03-10</kezd_datum>
+        <kezdDatum>2023-03-10</kezdDatum>
     </Vasarlas>
 
     <Szamlazas szamlakod="51" vasarlo_kod="01">
-        <szamla_datum>2023-01-20</szamla_datum>
+        <szamlaDatum>2023-01-20</szamlaDatum>
         <vegosszeg>55000</vegosszeg>
         <jogsiszam>54321</jogsiszam>
     </Szamlazas>
 
     <Szamlazas szamlakod="52" vasarlo_kod="02">
-        <szamla_datum>2023-03-01</szamla_datum>
+        <szamlaDatum>2023-03-01</szamlaDatum>
         <vegosszeg>60000</vegosszeg>
         <jogsiszam>65432</jogsiszam>
     </Szamlazas>
 
     <Szamlazas szamlakod="53" vasarlo_kod="03">
-        <szamla_datum>2023-04-12</szamla_datum>
+        <szamlaDatum>2023-04-12</szamlaDatum>
         <vegosszeg>70000</vegosszeg>
         <jogsiszam>76543</jogsiszam>
     </Szamlazas>
