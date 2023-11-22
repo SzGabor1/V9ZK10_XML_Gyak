@@ -113,6 +113,7 @@
                     maxOccurs="unbounded" />
             </xs:sequence>
         </xs:complexType>
+
         <!-- Primary keys -->
         <xs:key name="vasarlo_kulcs">
             <xs:selector xpath="Vasarlo" />
@@ -138,6 +139,7 @@
             <xs:selector xpath="Szamlazas" />
             <xs:field xpath="@szamlakod" />
         </xs:key>
+
         <!-- Foreign keys -->
         <xs:keyref name="AutosCeg_ceg_kulcs" refer="AutosCeg_kulcs">
             <xs:selector xpath="AutosAdatok" />
