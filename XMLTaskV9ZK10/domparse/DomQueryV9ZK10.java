@@ -149,9 +149,9 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying Szamlazas elements
+        // Querying Szamlazas elements where vegosszeg is greater than 60.000
         NodeList szamlazasList = doc.getElementsByTagName("Szamlazas");
-        System.out.println("\n----------Számlázások----------");
+        System.out.println("\n----------Számlázások ami nagyobb mint 60.000----------");
 
         for (int i = 0; i < szamlazasList.getLength(); i++) {
             Node node = szamlazasList.item(i);
@@ -165,12 +165,15 @@ public class DomQueryV9ZK10 {
                 String vegOsszeg = element.getElementsByTagName("vegosszeg").item(0).getTextContent();
                 String jogsiszam = element.getElementsByTagName("jogsiszam").item(0).getTextContent();
 
-                System.out.println("Számlakód: " + szamlaKod);
-                System.out.println("Vásárló Kód: " + szamlazasVasarloCode);
-                System.out.println("Számla Dátum: " + szamlaDatum);
-                System.out.println("Végösszeg: " + vegOsszeg);
-                System.out.println("Jogsiszám: " + jogsiszam);
-                System.out.println();
+                // Ellenőrizd, hogy a végösszeg nagyobb vagy egyenlő mint 60000
+                if (Integer.parseInt(vegOsszeg) >= 60000) {
+                    System.out.println("Számlakód: " + szamlaKod);
+                    System.out.println("Vásárló Kód: " + szamlazasVasarloCode);
+                    System.out.println("Számla Dátum: " + szamlaDatum);
+                    System.out.println("Végösszeg: " + vegOsszeg);
+                    System.out.println("Jogsiszám: " + jogsiszam);
+                    System.out.println();
+                }
             }
         }
 
