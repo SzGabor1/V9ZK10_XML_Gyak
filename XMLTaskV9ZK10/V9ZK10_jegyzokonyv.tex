@@ -59,12 +59,12 @@
 \begin{document}
 	\pagestyle{fancy}
 	\title{\Huge JEGYZŐKÖNYV \\ \LARGE Adatkezelés XML környezetben}
-	\author{\Large Féléves feladat: Állatkerthálózat}
+	\author{\Large Féléves feladat: Autókereskedés}
 	\date{\vspace{250px}
 		\begin{flushleft}
-			Készítette: \textbf{Martinák Mátyás}\\
-			Neptunkód: \textbf{KLNSPG}\\
-			Dátum: \textbf{2023. 10. 25.}
+			Készítette: \textbf{Szendrei Gábor}\\
+			Neptunkód: \textbf{V9ZK10}\\
+			Dátum: \textbf{2023. 11. 22.}
 		\end{flushleft}
 		\vspace{15px}
 		\begin{center}
@@ -79,492 +79,386 @@
 \fancyhead[L]{\thepage}
 
 \chapter{A feladat leírása}
-A feladat egy vagy több állatkert hálózatát mutatja be, amiben helyet kapnak az egyes állatkertekben dolgozók, azok feladatai, az állatok és élőhelyeik, eledelük, az eledelt gyártó cégek, illetve az állatok örökbefogadói, ha vannak. Mind az ER modell tervezésben és mind az XML megvalósításban angol nyelvet használtam, ugyanis ez a legelterjedtebb nyelv a programozásban\\
-Összesen 6 egyedet hoztam létre, melyek a következők:
+A beadanóm témája egy olyan adatbázis, amely autos cégeket és hozzújuk kapcsolódó egyedeket tartja nyilván.
+
 \begin{itemize}
-	\item Employee,
-	\item Site,
-	\item Habitat,
-	\item Animal,
-	\item Food,
-	\item User
+	\item Autóscég
+	\begin{itemize}
+		\item ceg\_kod - Elsődleges kulcs
+		\item cegnev - Cég nevét tartalmazza
+		\item helyrajziSzam - Cég elhelyezkedését tartalmazza
+		\item dolgozokSzama - Tárolja a dolgozók számát.
+	\end{itemize}
+		
+	\item Vásárlók
+	\begin{itemize}
+		\item jog\_kod - Elsődleges kulcs
+		\item email\_cim - Vásárló email címe
+		\item cim - Összetett tulajdonság (Ország, irányítószám, város, utca/házszám)
+		\item Telefonszam - Többértékű tulajdonság
+	\end{itemize}
+
+	\item Autós adatok
+	\begin{itemize}
+		\item forgalmi\_kod - Elsődleges kulcs
+		\item ar - Mennyibe kerül az eladásra váró autó
+		\item kmOra - Mennyi kilométert tettek már meg az autóval
+		\item statusz - Szöveges típus, amibe leírást lehet adni, pl. felújított 
+	\end{itemize}
+
+	\item Autós típus
+	\begin{itemize}
+		\item tipus\_kod - Elsődleges kulcs
+		\item gyartasiEv - Mikor gyártották az adott autót
+		\item marka - Az autó márkáját tartalmazza
+		\item nev - Az autó teljes nevét tartalmazza
+	\end{itemize}
+
+	\item Számlázás 
+	\begin{itemize}
+		\item szamlakod - Elsődleges kulcs
+		\item szamlaDatum - Mikor állították ki a számlát
+		\item vegosszeg - Adókkal mindennel együtt mennyit fizettek
+		\item jogsiszam - A vásárló azonosítására szolgál
+	\end{itemize}
 \end{itemize}
 
-\indent Legelőször is érdemes pár szót szólni a \textbf{Site} egyedről. Innen indul ki minden. Ez az egyed tárolja el az egyes
-állatkertek legfőbb tulajdonságait, mint pl. név, terület vagy éppen nyitva tartás. Elsődleges kulcsa a \texttt{site\_id}, ami
-az állatpark azonosítója.
-
-A Site és az \textbf{Employee} egyed között egy \texttt{1:N} kapcsolat van, mivel egy állatkerthez több dolgozó is tartozhat,
-de egy dolgozó, csak egy állatkerthez tartozhat. Az \texttt{1:N} kapcsolat neve: \textbf{Works}. Egy dolgozónak van azonosítója,
-vezeték és keresztneve (ami ER modellben egy többágú tulajdonság), neme, születési dátuma és ami a legfontosabb, a dolgozó feladatai, posztjai, amiből lehet egy vagy több, így ez egy többértékű tulajdonság lesz. Ez azért fontos, mivel a relációs modellnél ez a tulajdonság egy külön táblát kap majd, amiben lesz a posztnak egy id-ja, a poszt neve, illetve, hogy kihez tartozik.
-
-Egy állatkerthez több élőhely is tartoztat, de egy élőhely csak egy állatkerthez tartozik. Ezt ábrázolja a \textbf{Manage} kapcsolat, ami \texttt{1:N} kapcsolattal köti össze a Site és a \textbf{Habitat} egyedeket. Az élőhelynek nincsenek ,,extra'' tulajdonságai, van egy azonosítója, neve, térképen való elhelyezkedése, leírása és kapacitása, hogy mennyi állatot
-képes egyszerre befogadni.
-
-Az \textbf{Occupy} kapcsolat szintén \texttt{1:N} kapcsolattal köti össze a Habitat-ot az \textbf{Animal}-lel. Az állatnak van azonosítója, neve, faja és leírása.
-
-Itt jön a legelső \texttt{N:M} kapcsolat, az \textbf{Eat}, aminek lesz tulajdonsága, a \texttt{feeding\_time}, az etetési idő. Fontos, hogy megjegyezzük, az \texttt{N:M} kapcsolat külön kapcsolótáblát fog kapni a relációs modellben. Az Eat köti össze az Animalt
-a \textbf{Food}-dal, ami az állat eledelét modellező egyed. Ennek van azonosítója, neve, egy \texttt{boolean} (logikai) értéke, ami azt dönti el, hogy finom-e az adott eledel, vagy sem. Ezen kívül van egy többértékű tulajdonsága is, az eledeleket gyártó cégek, amik szintén külön táblát fognak majd kapni a relációs modellben.
-
-Az állatokat örökbe is lehet fogani bizonyos \textbf{User}-eknek, ezt a \textbf{Favor} \texttt{1:1} kapcsolat modellezi. Talán a Usernek
-van a legtöbb tulajdonsága ebben az adatbázisban. Van természetesen azonosítója, két neve (vezeték és keresztnév), neme, bejelentkezési adatai (felhasználónév, jelszó), mivel online szeretnénk lebonyolítani az állatok örökbefogadását. Ezen kívül címe is van a felhasználónak, ami az irányítószám, város, utca, házszám tulajdonságokból tevődik össze.
 
 \chapter{I. feladat - XML/XSD létrehozás}
 
-\section[ER modell]{A feladat ER modellje}
+\section{ER modell}
 
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=0.999\linewidth]{ERKLNSPG.png}
+	\includegraphics[width=0.999\linewidth]{ERV9ZK10.drawio.png}
 	\caption{A feladat ER modellje}
 \end{figure}
 
-\section[XDM modell]{A feladat XDM modellje}
+\begin{itemize}
+	\item Autós cég – Autó adatok: 1:n Egy autó több cégnél is megtud fordulni.
+	\item Autó adatok – Autó típús 1:1 Egy auto adataihoz egy típús tartozhat csak.
+	\item Autós cég – Vásárló n:m  Több vásárló több céghez tartozhat. 
+	\item Vásárló – Számlázás Egy vásárlóhoz több számla is tartozhat.
+	
+\end{itemize}
 
-\indent\indent A konvertáláskor figyelembe kell venni az ER modell során definiált kapcsolatokat, azok típusait (\texttt{1:1, 1:N, N:M}), illetve az entitások elsődleges kulcsait is. Minden \textit{egy-több} kapcsolat esetében ahhoz az elsődleges kulcshoz kerül a szaggatott nyíl, ahol az ER modellben a ,,több'' szerepel. Az ,,Eat'' és a ,,Favor'' kapcsolatokat kivéve, mindenhol \texttt{1:N} kapcsolat szerepel az ER modellben, így az XDM mindenhol majdnem hasonlóan fog kinézni. Az \texttt{N:M} kapcsolat esetében egy új modellt veszünk fel, tulajdonsággal és \textit{primary key}-el együtt természetesen, ahonnan a nyilakat a fő entitásokhoz húzzuk. A többágú tulajdonságok itt is több tulajdonsággal rendelkeznek, a többértékű tulajdonságok itt nem kapnak külön modellt. Az XDM modell gyökéreleme: \textbf{Zoo\_KLNSPG}
+\section{XDM modell}
 
+XDM modellnél háromféle jelölést alkalmazhatunk. Ezek az ellipszis, a rombusz, illetve a téglalap. Az ellipszis jelöli az elemeket minden egyedből elem lesz, ezen felül a tulajdonságokból is. A rombusz jelöli az attribútumokat, amelyek a kulcs tulajdonságokból keletkeznek. A téglalap jelöli a szöveget, amely majd az XML dokumentumban fog megjelenni. Azoknak az elemeknek, amelyek többször is előfordulhatnak, a jelölése dupla ellipszissel történik. Az idegenkulcsok és a kulcsok közötti kapcsolatot szaggatott vonalas nyíllal jelöljük.
 \begin{figure}[h]
 	\centering
-	\includegraphics[width=1.01\linewidth]{XDMKLNSPG.png}
+	\includegraphics[width=1.01\linewidth]{XDMV9ZK10.drawio.png}
 	\caption{A feladat XDM modellje}
 \end{figure}
 
-A ,,Works'' kapcsolat \texttt{1:N}, ahol a több érték az \textit{Employee}-hoz kerül, így a kapcsolatot is az \textit{emp\_id}-hez húzzuk. Szintén ugyan ez a helyzet a ,,Manage'' kapcsolatnál is, ahol a rombuszt a \textit{habitat\_id}-hoz húzzuk. Az \textit{Animal} modell egy különleges, ide 3 kapcsolatot is húzunk, melyek:
-
-\begin{itemize}
-	\item ,,Manage'' a \textit{Habitat}-ból
-	\item ,,AnimalEat'' az \textit{Eat}-ből és végül
-	\item ,,Favor'' a \textit{User}-ből 
-\end{itemize}
-Kettő \texttt{1:N} kapcsolat és egy \texttt{1:1} kapcsolat húz ide.
-
 \section[Az XML dokumentum]{Az XDM modell alapján XML dokumentum készítése}
-\indent\indent Az \texttt{XMLKLNSPG.xml} dokumentumot \textit{Visual Studio Code}-ban hoztam létre, és \texttt{XML 1.0} szabvány szerint készült el. A dokumentumhoz hozzá kötöttem az \texttt{XMLSchemaKLNSPG.xsd} XSD file-t, és definiáltam az egyedeket az XML szabályainak megfelelően. Ahol szükséges volt, gyermek elemeket, valamint attribútumokat használtam a tagok azonosításához.
-
+\indent\indent Az \texttt{ERV9ZK10.xml} dokumentumot \textit{Visual Studio Code}-ban hoztam létre, és \texttt{XML 1.0} szabvány szerint készült el. A dokumentumhoz hozzá kötöttem az \texttt{ERV9ZK10.xsd} XSD file-t, és definiáltam az egyedeket az XML szabályainak megfelelően. Ahol szükséges volt, gyermek elemeket, valamint attribútumokat használtam a tagok azonosításához. Az XDM modell alapján az XML dokumentumot úgy készítettem el, hogy először is a gyökér elementtel kezdtem, ami az AutosCegERV9ZK10 volt. A gyermek elemeiből 3-3 példányt hoztam létre, ezeknek az elemeknek az attribútumai közé tartoznak a kulcsok, illetve idegenkulcsok is, mindezek után ezeknek az elemeknek létrehoztam a többi gyermek elementet is.
 \begin{lstlisting}[caption={Az XML dokumentum}]
 	<?xml version="1.0" encoding="UTF-8"?>
+	<AutosCegERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
+		xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
+		<Vasarlo jogkod="01">
+			<email_cim>jane.smith456@example.com</email_cim>
+			<cim>
+				<orszag>Magyarorszag</orszag>
+				<isz>1234</isz>
+				<varos>Budapest</varos>
+				<uHsz>Kossuth utca 10</uHsz>
+			</cim>
+			<nev>Kovacs Peter</nev>
+			<Telefonszam>0630-987-6543</Telefonszam>
+			<Telefonszam>0630-987-6453</Telefonszam>
+		</Vasarlo>
 	
-	<Zoo_KLNSPG xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaKLNSPG.xsd">
+		<Vasarlo jogkod="02">
+			<email_cim>john.doe456@example.co.uk</email_cim>
+			<cim>
+				<orszag>Magyarorszag</orszag>
+				<isz>5678</isz>
+				<varos>Szeged</varos>
+				<uHsz>Rakoczi ut 5</uHsz>
+			</cim>
+			<nev>Nagy Anna</nev>
+			<Telefonszam>0620-765-4321</Telefonszam>
+			<Telefonszam>0620-765-0000</Telefonszam>
+		</Vasarlo>
 	
-	<!-- Employee peldanyok-->
-	<Employee emp_id="1">
-		<first_name>Kovacs</first_name>
-		<last_name>Janos</last_name>
-		<birth_date>1979-11-02</birth_date>
-		<sex>M</sex>
-		<posts>
-			<post>Kisallat gondozo</post>
-			<post>Eteto</post>
-			<post>Szemetszedo</post>
-		</posts>
-	</Employee>
-	<Employee emp_id="2">
-		<first_name>Jakab</first_name>
-		<last_name>Jozsef</last_name>
-		<birth_date>1954-12-06</birth_date>
-		<sex>M</sex>
-		<posts>
-			<post>Terrarium takarito</post>
-			<post>Gondnok</post>
-			<post>Jegyszedo</post>
-		</posts>
-	</Employee>
-	<Employee emp_id="3">
-		<first_name>Balogh</first_name>
-		<last_name>Boglarka</last_name>
-		<birth_date>2000-11-04</birth_date>
-		<sex>F</sex>
-		<posts>
-			<post>Gondozo</post>
-			<post>Eteto</post>
-			<post>Jegyszedo</post>
-		</posts>
-	</Employee>
+		<Vasarlo jogkod="03">
+			<email_cim>mark.johnson789@example.co.uk</email_cim>
+			<cim>
+				<orszag>Magyarorszag</orszag>
+				<isz>9876</isz>
+				<varos>Debrecen</varos>
+				<uHsz>Petofi ter 3</uHsz>
+			</cim>
+			<nev>Kiss Eva</nev>
+			<Telefonszam>0612-345-6789</Telefonszam>
+			<Telefonszam>0630-987-6543</Telefonszam>
+		</Vasarlo>
 	
-	<!-- Site peldanyok-->
-	<Site site_id="1" Works="3" Manage="1">
-		<name>Miskolc Allatkert</name>
-		<area>212000</area>
-		<opening_hours>09:00 - 17:00</opening_hours>
-	</Site>
-	<Site site_id="2" Works="1" Manage="2">
-		<name>Fovarosi Allat-es Novenykert</name>
-		<area>184001</area>
-		<opening_hours>09:00 - 17:30</opening_hours>
-	</Site>
-	<Site site_id="3" Works="2" Manage="3">
-		<name>Debreceni Allatkert es Vidampark</name>
-		<area>170000</area>
-		<opening_hours>09:00 - 15:30</opening_hours>
-	</Site>
+		<AutosCeg ceg_kod="11">
+			<cegnev>AutaPlusz Kft.</cegnev>
+			<helyrajziSzam>BUD-123456</helyrajziSzam>
+			<dolgozokSzama>15</dolgozokSzama>
+		</AutosCeg>
 	
-	<!-- Habitat peldanyok-->
-	<Habitat habitat_id="1" Occupy="3">
-		<name>Medve park</name>
-		<location>#3</location>
-		<description>Az allatkerti medvek elohelye. Jelenleg harom medve talalhato itt, Jazmin, Andor es Matyko. Szeretik a latogatokat, mindig erdeklodve nezelodnek.</description>
-	</Habitat>
-	<Habitat habitat_id="2" Occupy="1">
-		<name>Muflonok dombja</name>
-		<location>#22</location>
-		<description>Vadasparkunk muflonjai itt talalhatoak. Baratsagosak, turista kedvelok, szeretik a finom falatokat.</description>
-	</Habitat>
-	<Habitat habitat_id="3" Occupy="2">
-		<name>Szurikatak szigete</name>
-		<location>#18</location>
-		<description>Ki ne imadna a kis erdeklodo szurikatakat. Nalunk rogton 4-et is orokbe fogadhat, vagy csak latogathat is.</description>
-	</Habitat>
+		<AutosCeg ceg_kod="12">
+			<cegnev>Autovilag Bt.</cegnev>
+			<helyrajziSzam>DEB-654321</helyrajziSzam>
+			<dolgozokSzama>10</dolgozokSzama>
+		</AutosCeg>
 	
-	<!-- Animal peldanyok-->
-	<Animal animal_id="1">
-		<name>Matyko</name>
-		<racial>Medve</racial>
-		<description>Az allatkert egyik kan medveje</description>
-	</Animal>
-	<Animal animal_id="2">
-		<name>Kis Hegyes</name>
-		<racial>Muflon</racial>
-		<description>Az allatkert nosteny muflona</description>
-	</Animal>
-	<Animal animal_id="3">
-		<name>Mokas</name>
-		<racial>Szurikata</racial>
-		<description>Az allatkert legfiatalabb szurikataja</description>
-	</Animal>
+		<AutosCeg ceg_kod="13">
+			<cegnev>Kocsis Kft.</cegnev>
+			<helyrajziSzam>SZEG-987654</helyrajziSzam>
+			<dolgozokSzama>20</dolgozokSzama>
+		</AutosCeg>
 	
-	<!-- Food peldanyok-->
-	<Food food_id="1">
-		<name>Fagyasztott nyershus</name>
-		<is_delicious>false</is_delicious>
-		<companies>
-			<company>Family Frost</company>
-			<company>Magyar Zoldseg</company>
-			<company>Eszkimo</company>
-		</companies>
-	</Food>
-	<Food food_id="2">
-		<name>Sargarepa</name>
-		<is_delicious>true</is_delicious>
-		<companies>
-			<company>Allati zoldseg/gyumolcs</company>
-			<company>Magyar Zoldseg</company>
-			<company>Felix allati eledel</company>
-		</companies>
-	</Food>
-		<Food food_id="3">
-		<name>Sult husi</name>
-		<is_delicious>true</is_delicious>
-		<companies>
-			<company>Frosty food</company>
-			<company>Eszkimo</company>
-			<company>Magyar zoldseg</company>
-		</companies>
-	</Food>
+		<AutosAdatok forgalmi_kod="21" ceg_kod="11">
+			<ar>45000</ar>
+			<kmOra>78900</kmOra>
+			<statusz>uj</statusz>
+		</AutosAdatok>
 	
-	<!-- Eat peldanyok-->
-	<Eat eat_id="1" FoodEat="1" AnimalEat="3">
-		<feeding_time>09:00:00 18:00:00</feeding_time>
-	</Eat>
-	<Eat eat_id="2" FoodEat="3" AnimalEat="1">
-		<feeding_time>07:00:00 20:00:00</feeding_time>
-	</Eat>
-	<Eat eat_id="3" FoodEat="2" AnimalEat="2">
-		<feeding_time>06:00:00 14:00:00 20:00:00</feeding_time>
-	</Eat>    
+		<AutosAdatok forgalmi_kod="22" ceg_kod="11">
+			<ar>55000</ar>
+			<kmOra>65400</kmOra>
+			<statusz>hasznalt</statusz>
+		</AutosAdatok>
 	
-	<!-- User peldanyok-->
-	<User user_id="1" Favor="3">
-		<username>Allatbarat</username>
-		<password>allat123</password>
-		<sex>M</sex>
-		<first_name>Kiss</first_name>
-		<last_name>Sandor</last_name>
-		<post_code>8200</post_code>
-		<city>Veszprem</city>
-		<street>Petofi Sandor utca</street>
-		<number>3</number>
-	</User>
-	<User user_id="2" Favor="1">
-		<username>Vadoc</username>
-		<password>fegyo02</password>
-		<sex>M</sex>
-		<first_name>Fegyver</first_name>
-		<last_name>Sandor</last_name>
-		<post_code>4024</post_code>
-		<city>Debrecen</city>
-		<street>Kossuth utca</street>
-		<number>26</number>
-	</User>
-		<User user_id="3" Favor="2">
-		<username>Possumluvr</username>
-		<password>possumlover</password>
-		<sex>F</sex>
-		<first_name>Kazai</first_name>
-		<last_name>Eszter</last_name>
-		<post_code>3521</post_code>
-		<city>Miskolc</city>
-		<street>Uj elet utca</street>
-		<number>24</number>
-	</User>
+		<AutosAdatok forgalmi_kod="23" ceg_kod="13">
+			<ar>60000</ar>
+			<kmOra>89000</kmOra>
+			<statusz>hasznalt</statusz>
+		</AutosAdatok>
 	
-	</Zoo_KLNSPG>
+		<AutosTipus tipus_kod="31" forgalmi_kod="21">
+			<gyartasiEv>2022</gyartasiEv>
+			<marka>Toyota</marka>
+			<nev>Corolla Hybrid</nev>
+		</AutosTipus>
+	
+		<AutosTipus tipus_kod="32" forgalmi_kod="22">
+			<gyartasiEv>2021</gyartasiEv>
+			<marka>Volkswagen</marka>
+			<nev>Golf GTI</nev>
+		</AutosTipus>
+	
+		<AutosTipus tipus_kod="33" forgalmi_kod="23">
+			<gyartasiEv>2020</gyartasiEv>
+			<marka>Ford</marka>
+			<nev>Focus Titanium</nev>
+		</AutosTipus>
+	
+		<Vasarlas datumkod="41" ceg_kod="11" vasarlo_kod="01">
+			<kezdDatum>2023-01-15</kezdDatum>
+		</Vasarlas>
+	
+		<Vasarlas datumkod="42" ceg_kod="12" vasarlo_kod="02">
+			<kezdDatum>2023-02-28</kezdDatum>
+		</Vasarlas>
+	
+		<Vasarlas datumkod="43" ceg_kod="13" vasarlo_kod="02">
+			<kezdDatum>2023-03-10</kezdDatum>
+		</Vasarlas>
+	
+		<Szamlazas szamlakod="51" vasarlo_kod="01">
+			<szamlaDatum>2023-01-20</szamlaDatum>
+			<vegosszeg>55000</vegosszeg>
+			<jogsiszam>54321</jogsiszam>
+		</Szamlazas>
+	
+		<Szamlazas szamlakod="52" vasarlo_kod="02">
+			<szamlaDatum>2023-03-01</szamlaDatum>
+			<vegosszeg>60000</vegosszeg>
+			<jogsiszam>65432</jogsiszam>
+		</Szamlazas>
+	
+		<Szamlazas szamlakod="53" vasarlo_kod="03">
+			<szamlaDatum>2023-04-12</szamlaDatum>
+			<vegosszeg>70000</vegosszeg>
+			<jogsiszam>76543</jogsiszam>
+		</Szamlazas>
+	
+	</AutosCegERV9ZK10>
 \end{lstlisting}
 \clearpage
 
 \section{Az XML dokumentum alapján XMLSchema készítése}
-\indent\indent Az \texttt{XMLSchemaKLNSPG.xsd} séma file leírja mindazon megkötéseket, amelyeknek az XML dokumentumnak meg kell felelnie. Itt definiálunk minden típust, amit az XML file-ban használni szeretnénk, valamint az adatbázis kapcsolatait \texttt{xs:unique} és \texttt{xs:keyref} bejegyzésekkel hozom létre.
+\indent\indent Az \texttt{ERV9ZK10.xsd} séma file leírja mindazon megkötéseket, amelyeknek az XML dokumentumnak meg kell felelnie. Itt definiálunk minden típust, amit az XML file-ban használni szeretnénk, valamint az adatbázis kapcsolatait \texttt{xs:unique} és \texttt{xs:keyref} bejegyzésekkel hozom létre. . Az XML Schémám meghatározza az adatokat, mint például a cég nevét, vásárlók címét, telefonszámokat, amelyeket egy \texttt{telefonszamTipus} típus korlátozza, hogy csak bizonyos formátumú (4 szám – 3 szám – 4 szám) fogadja el. Továbbá létezik egy \texttt{emailCimTipus} is, amely szabályozza az emailcím formátumát, amit elfogad. Komplex típusokat is definiáltam, például a \texttt{vasarloTipus}, amiben egy komplex típus definiálja a cím formátumát, \texttt{autosCegTipus}, \texttt{autosAdatokTipus}, \texttt{autosTipusTipus}, \texttt{vasarlasTipus}, \texttt{szamlazasTipus}. Az adatbázis integritásának megőrzése érdekében elsődleges (PK) illetve idegen kulcsok (FK) meghatározására került sor. Az XML séma így biztosítja, hogy az adatok szerkezete és kapcsolatai érvényesek és következetesek legyenek.
+
 
 \begin{lstlisting}[caption={Az XSD dokumentum}]
-<?xml version="1.0" encoding="UTF-8"?>
+	<?xml version="1.0" encoding="UTF-8"?>
 	<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	
-		<!-- Sajat egyszeru tipusok definialasa -->
-		
-		<!-- Altalanos sajat tipusok-->
-		<xs:element name="name" type="xs:string"/>
-		<xs:element name="first_name" type="xs:string"/>
-		<xs:element name="last_name" type="xs:string"/>
-		<xs:element name="sex" type="sexType"/>
-		<xs:element name="description" type="xs:string"/>
-		
-		<!-- Employee sajat tipus-->
-		<xs:element name="birth_date" type="dateType"/>
-		<xs:element name="posts" type="postsType"/>
-		
-		<!-- Site sajat tipusok-->
-		<xs:element name="area" type="xs:integer"/>
-		<xs:element name="opening_hours" type="xs:string"/>
-		
-		<!-- Habitat sajat tipus-->
-		<xs:element name="location" type="xs:string"/>
-		
-		<!-- Animal sajat tipus-->
-		<xs:element name="racial" type="xs:string"/>
-		
-		<!-- Food sajat tipus-->
-		<xs:element name="is_delicious" type="xs:boolean"/>
-		<xs:element name="companies" type="companyType"/>
-		
-		<!-- Eat sajat tipus-->
-		<xs:element name="feeding_time" type="timeListType"/>
-		
-		<!-- User sajat tipusok-->
-		<xs:element name="username" type="xs:string"/>
-		<xs:element name="password" type="xs:string"/>
-		<xs:element name="post_code" type="xs:string"/>
-		<xs:element name="city" type="xs:string"/>
-		<xs:element name="street" type="xs:string"/>
-		<xs:element name="number" type="xs:string"/>
-		
-		<!-- Simple types-->
-		<xs:simpleType name="dateType">
-			<xs:restriction base="xs:date">
-				<xs:minInclusive value="1940-01-01"/>
-				<xs:maxInclusive value="2000-12-31"/>
-			</xs:restriction>
-		</xs:simpleType>
-		
-		<xs:simpleType name="sexType">
+		<!-- Define simple types -->
+		<xs:element name="nev" type="xs:string" />
+		<xs:element name="cegnev" type="xs:string" />
+		<xs:element name="helyrajziSzam" type="xs:string" />
+		<xs:element name="dolgozokSzama" type="xs:positiveInteger" />
+		<xs:element name="ar" type="xs:positiveInteger" />
+		<xs:element name="kmOra" type="xs:positiveInteger" />
+		<xs:element name="statusz" type="xs:string" />
+		<xs:element name="gyartasiEv" type="xs:positiveInteger" />
+		<xs:element name="marka" type="xs:string" />
+		<xs:element name="kezdDatum" type="xs:date" />
+		<xs:element name="szamlaDatum" type="xs:date" />
+		<xs:element name="vegosszeg" type="xs:positiveInteger" />
+		<xs:element name="jogsiszam" type="xs:positiveInteger" />
+	
+		<xs:simpleType name="emailCimTipus">
 			<xs:restriction base="xs:string">
-				<xs:enumeration value="M"/>
-				<xs:enumeration value="F"/>
+				<xs:pattern
+					value="([0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*@([0-9a-zA-Z][-\w]*[0-9a-zA-Z]\.)+[a-zA-Z]{2,9})" />
 			</xs:restriction>
 		</xs:simpleType>
-		
-		<xs:simpleType name="timeListType">
-			<xs:list itemType="xs:time"/>
-		</xs:simpleType>
-		
-		<xs:simpleType name="postAttributeType">
+	
+		<xs:simpleType name="telefonszamTipus">
 			<xs:restriction base="xs:string">
+				<xs:pattern value="\d{4}-\d{3}-\d{4}" />
 			</xs:restriction>
 		</xs:simpleType>
-		
-		<xs:simpleType name="companyAttributeType">
-			<xs:restriction base="xs:string">
-			</xs:restriction>
-		</xs:simpleType>
-		
-		<!-- Complex types-->
-		<xs:complexType name="employeeType">
+	
+		<!-- Define complex types -->
+		<xs:complexType name="vasarloTipus">
 			<xs:sequence>
-				<xs:element ref="first_name"/>
-				<xs:element ref="last_name"/>
-				<xs:element ref="birth_date"/>
-				<xs:element ref="sex"/>
-				<xs:element ref="posts"/>
+				<xs:element name="email_cim" type="emailCimTipus" />
+				<xs:element name="cim">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="orszag" type="xs:string" />
+							<xs:element name="isz" type="xs:positiveInteger" />
+							<xs:element name="varos" type="xs:string" />
+							<xs:element name="uHsz" type="xs:string" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="nev" />
+				<xs:element name="Telefonszam" type="telefonszamTipus" maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="emp_id" type="xs:integer" use="required"/>
+			<xs:attribute name="jogkod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="postsType">
+	
+		<xs:complexType name="autosCegTipus">
 			<xs:sequence>
-				<xs:element name="post" type="xs:string" minOccurs="1" maxOccurs="3"/>
+				<xs:element ref="cegnev" />
+				<xs:element ref="helyrajziSzam" />
+				<xs:element ref="dolgozokSzama" />
 			</xs:sequence>
-			<xs:attribute name="post" type="postAttributeType"/>
+			<xs:attribute name="ceg_kod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="siteType">
+	
+		<xs:complexType name="autosAdatokTipus">
 			<xs:sequence>
-				<xs:element ref="name"/>
-				<xs:element ref="area"/>
-				<xs:element ref="opening_hours"/>
+				<xs:element ref="ar" />
+				<xs:element ref="kmOra" />
+				<xs:element ref="statusz" />
 			</xs:sequence>
-			<xs:attribute name="site_id" type="xs:integer" use="required"/>
-			<xs:attribute name="Works" type="xs:integer" use="required"/>
-			<xs:attribute name="Manage" type="xs:integer" use="required"/>
+			<xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
+			<xs:attribute name="ceg_kod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="habitatType">
+	
+		<xs:complexType name="autosTipusTipus">
 			<xs:sequence>
-				<xs:element ref="name"/>
-				<xs:element ref="location"/>
-				<xs:element ref="description"/>
+				<xs:element ref="gyartasiEv" />
+				<xs:element ref="marka" />
+				<xs:element ref="nev" />
 			</xs:sequence>
-			<xs:attribute name="habitat_id" type="xs:integer" use="required"/>
-			<xs:attribute name="Occupy" type="xs:integer" use="required"/>
+			<xs:attribute name="tipus_kod" type="xs:integer" use="required" />
+			<xs:attribute name="forgalmi_kod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="animalType">
+	
+		<xs:complexType name="vasarlasTipus">
 			<xs:sequence>
-				<xs:element ref="name"/>
-				<xs:element ref="racial"/>
-				<xs:element ref="description"/>
+				<xs:element ref="kezdDatum" />
 			</xs:sequence>
-			<xs:attribute name="animal_id" type="xs:integer" use="required"/>
+			<xs:attribute name="datumkod" type="xs:integer" use="required" />
+			<xs:attribute name="ceg_kod" type="xs:integer" use="required" />
+			<xs:attribute name="vasarlo_kod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="foodType">
+	
+		<xs:complexType name="szamlazasTipus">
 			<xs:sequence>
-				<xs:element ref="name"/>
-				<xs:element ref="is_delicious"/>
-				<xs:element ref="companies"/>
+				<xs:element ref="szamlaDatum"></xs:element>
+				<xs:element ref="vegosszeg"></xs:element>
+				<xs:element ref="jogsiszam"></xs:element>
 			</xs:sequence>
-			<xs:attribute name="food_id" type="xs:integer" use="required"/>
+			<xs:attribute name="szamlakod" type="xs:integer" use="required" />
+			<xs:attribute name="vasarlo_kod" type="xs:integer" use="required" />
 		</xs:complexType>
-		
-		<xs:complexType name="companyType">
-			<xs:sequence>
-				<xs:element name="company" type="xs:string" minOccurs="1" maxOccurs="3"/>
-			</xs:sequence>
-			<xs:attribute name="company" type="companyAttributeType"/>
-		</xs:complexType>
-		
-		<xs:complexType name="eatType">
-			<xs:sequence>
-				<xs:element ref="feeding_time"/>
-			</xs:sequence>
-			<xs:attribute name="eat_id" type="xs:integer" use="required"/>
-			<xs:attribute name="FoodEat" type="xs:integer" use="required"/>
-			<xs:attribute name="AnimalEat" type="xs:integer" use="required"/>
-		</xs:complexType>
-		
-		<xs:complexType name="userType">
-			<xs:sequence>
-				<xs:element ref="username"/>
-				<xs:element ref="password"/>
-				<xs:element ref="sex"/>
-				<xs:element ref="first_name"/>
-				<xs:element ref="last_name"/>
-				<xs:element ref="post_code"/>
-				<xs:element ref="city"/>
-				<xs:element ref="street"/>
-				<xs:element ref="number"/>
-			</xs:sequence>
-			<xs:attribute name="user_id" type="xs:integer" use="required"/>
-			<xs:attribute name="Favor" type="xs:integer" use="required"/>
-		</xs:complexType>
-		
-		<!-- A gyokerelem osszetett tipusa -->
-		<xs:complexType name="zooType">
-			<xs:sequence>
-				<xs:element name="Employee" type="employeeType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="Site" type="siteType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="Habitat" type="habitatType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="Animal" type="animalType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="Food" type="foodType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="Eat" type="eatType" minOccurs="3" maxOccurs="unbounded"/>
-				<xs:element name="User" type="userType" minOccurs="3" maxOccurs="unbounded"/>
-			</xs:sequence>
-		</xs:complexType>
-		
-		<!-- A gyokerelem definicioja -->
-		<xs:element name="Zoo_KLNSPG" type="zooType">
-		
-		<!-- Elsodleges kulcsok -->
-		<xs:key name="EmployeeKey">
-			<xs:selector xpath="Employee"/>
-			<xs:field xpath="@emp_id"/>
-		</xs:key>
-		
-		<xs:key name="SiteKey">
-			<xs:selector xpath="Site"/>
-			<xs:field xpath="@site_id"/>
-		</xs:key>
-		
-		<xs:key name="HabitatKey">
-			<xs:selector xpath="Habitat"/>
-			<xs:field xpath="@habitat_id"/>
-		</xs:key>
-		
-		<xs:key name="AnimalKey">
-			<xs:selector xpath="Animal"/>
-			<xs:field xpath="@animal_id"/>
-		</xs:key>
-		
-		<xs:key name="FoodKey">
-			<xs:selector xpath="Food"/>
-			<xs:field xpath="@food_id"/>
-		</xs:key>
-		
-		<xs:key name="EatKey">
-			<xs:selector xpath="Eat"/>
-			<xs:field xpath="@eat_id"/>
-		</xs:key>
-		
-		<xs:key name="UserKey">
-			<xs:selector xpath="User"/>
-			<xs:field xpath="@user_id"/>
-		</xs:key>
-		
-		<!-- Idegen kulcsok -->
-		<xs:keyref name="SiteWork" refer="EmployeeKey">
-			<xs:selector xpath="Site"/>
-			<xs:field xpath="@Works"/>
-		</xs:keyref>
-		
-		<xs:keyref name="SiteManage" refer="HabitatKey">
-			<xs:selector xpath="Site"/>
-			<xs:field xpath="@Manage"/>
-		</xs:keyref>
-		
-		<xs:keyref name="HabitatOccupy" refer="AnimalKey">
-			<xs:selector xpath="Habitat"/>
-			<xs:field xpath="@Occupy"/>
-		</xs:keyref>
-		
-		<xs:keyref name="EatFood" refer="FoodKey">
-			<xs:selector xpath="Eat"/>
-			<xs:field xpath="@FoodEat"/>
-		</xs:keyref>
-		
-		<xs:keyref name="EatAnimal" refer="AnimalKey">
-			<xs:selector xpath="Eat"/>
-			<xs:field xpath="@AnimalEat"/>
-		</xs:keyref>
-		
-		<xs:keyref name="UserAnimal" refer="AnimalKey">
-			<xs:selector xpath="User"/>
-			<xs:field xpath="@Favor"/>
-		</xs:keyref>
-		
-		<!-- Az 1:1 kapcsolat-->
-		<xs:unique name="UserAnimalConnect">
-			<xs:selector xpath="UserKey"/>
-			<xs:field xpath="@Favor"/>
-		</xs:unique>
-	</xs:element>
-</xs:schema>
+	
+		<!-- Root element with keys and keyrefs -->
+		<xs:element name="AutosCegERV9ZK10">
+			<xs:complexType>
+				<xs:sequence>
+					<xs:element name="Vasarlo" type="vasarloTipus" minOccurs="0" maxOccurs="100" />
+					<xs:element name="AutosCeg" type="autosCegTipus" minOccurs="0" maxOccurs="100" />
+					<xs:element name="AutosAdatok" type="autosAdatokTipus" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xs:element name="AutosTipus" type="autosTipusTipus" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xs:element name="Vasarlas" type="vasarlasTipus" minOccurs="0"
+						maxOccurs="unbounded" />
+					<xs:element name="Szamlazas" type="szamlazasTipus" minOccurs="0"
+						maxOccurs="unbounded" />
+				</xs:sequence>
+			</xs:complexType>
+	
+			<!-- Primary keys -->
+			<xs:key name="vasarlo_kulcs">
+				<xs:selector xpath="Vasarlo" />
+				<xs:field xpath="@jogkod" />
+			</xs:key>
+			<xs:key name="AutosCeg_kulcs">
+				<xs:selector xpath="AutosCeg" />
+				<xs:field xpath="@ceg_kod" />
+			</xs:key>
+			<xs:key name="AutosAdatok_kulcs">
+				<xs:selector xpath="AutosAdatok" />
+				<xs:field xpath="@forgalmi_kod" />
+			</xs:key>
+			<xs:key name="AutosTipus_kulcs">
+				<xs:selector xpath="AutosTipus" />
+				<xs:field xpath="@tipus_kod" />
+			</xs:key>
+			<xs:key name="Vasarlas_kulcs">
+				<xs:selector xpath="Vasarlas" />
+				<xs:field xpath="@datumkod" />
+			</xs:key>
+			<xs:key name="Szamlazas_kulcs">
+				<xs:selector xpath="Szamlazas" />
+				<xs:field xpath="@szamlakod" />
+			</xs:key>
+	
+			<!-- Foreign keys -->
+			<xs:keyref name="AutosCeg_ceg_kulcs" refer="AutosCeg_kulcs">
+				<xs:selector xpath="AutosAdatok" />
+				<xs:field xpath="@ceg_kod" />
+			</xs:keyref>
+			<xs:keyref name="Auto_tipus_AutosAdatok_kulcs" refer="AutosAdatok_kulcs">
+				<xs:selector xpath="AutosTipus" />
+				<xs:field xpath="@forgalmi_kod" />
+			</xs:keyref>
+			<xs:keyref name="Vasarlas_ceg_kulcs" refer="AutosCeg_kulcs">
+				<xs:selector xpath="Vasarlas" />
+				<xs:field xpath="@ceg_kod" />
+			</xs:keyref>
+			<xs:keyref name="Vasarlas_vasarlo_kulcs" refer="vasarlo_kulcs">
+				<xs:selector xpath="Vasarlas" />
+				<xs:field xpath="@vasarlo_kod" />
+			</xs:keyref>
+			<xs:keyref name="Szamlazas_vasarlo_kulcs" refer="vasarlo_kulcs">
+				<xs:selector xpath="Szamlazas" />
+				<xs:field xpath="@vasarlo_kod" />
+			</xs:keyref>
+			<!-- Unique constraint for 1:1 relationship -->
+			<xs:unique name="AutosAdatok_Auto_tipusok_egyegy">
+				<xs:selector xpath="AutosTipus" />
+				<xs:field xpath="@forgalmi_kod" />
+			</xs:unique>
+		</xs:element>
+	</xs:schema>
 \end{lstlisting}
 
 \chapter{II. feladat - DOM}
