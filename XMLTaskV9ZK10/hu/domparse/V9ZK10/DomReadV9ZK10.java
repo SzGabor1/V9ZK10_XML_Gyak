@@ -8,21 +8,25 @@ import java.util.StringJoiner;
 public class DomReadV9ZK10 {
     public static void main(String[] args) {
         try {
+            // Bemeneti XML fájl elérési útvonala
             File inputFile = new File("XMLTaskV9ZK10\\ERV9ZK10.xml");
 
+            // DOM létrehozása és inicializálása
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
 
+            // Kimeneti XML fájl elérési útvonala
             File outputFile = new File("XMLTaskV9ZK10\\ERV9ZK10_1.xml");
+            // Író inicializálása
             PrintWriter writer = new PrintWriter(new FileWriter(outputFile, true));
 
-            // kiirja az XML prológust
+            // XML prológus kiírása
             System.out.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             writer.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
 
-            // Gyökér elem kiiratása
+            // Gyökér elem adatainak kiírása
             Element rootElement = doc.getDocumentElement();
             String rootName = rootElement.getTagName();
             StringJoiner rootAttributes = new StringJoiner(" ");
@@ -36,7 +40,7 @@ public class DomReadV9ZK10 {
             System.out.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
             writer.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
 
-            // kiirja az az elemek nevét
+            // Elemek nevének kiírása
             printNodeList(doc.getElementsByTagName("Vasarlo"), writer);
             printNodeList(doc.getElementsByTagName("AutosCeg"), writer);
             printNodeList(doc.getElementsByTagName("AutosAdatok"), writer);
@@ -44,16 +48,18 @@ public class DomReadV9ZK10 {
             printNodeList(doc.getElementsByTagName("Vasarlas"), writer);
             printNodeList(doc.getElementsByTagName("Szamlazas"), writer);
 
-            // Lezárja az elemet
+            // Gyökér elem lezárása
             System.out.println("</" + rootName + ">");
             writer.append("</" + rootName + ">");
 
+            // Író bezárása
             writer.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    // NodeList kiírása
     private static void printNodeList(NodeList nodeList, PrintWriter writer) {
         for (int i = 0; i < nodeList.getLength(); i++) {
             Node node = nodeList.item(i);
@@ -63,6 +69,7 @@ public class DomReadV9ZK10 {
         }
     }
 
+    // Node kiírása rekurzívan
     private static void printNode(Node node, int indent, PrintWriter writer) {
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
@@ -100,6 +107,7 @@ public class DomReadV9ZK10 {
         }
     }
 
+    // Behúzások kinyomtatása
     private static String getIndentString(int indent) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i++) {

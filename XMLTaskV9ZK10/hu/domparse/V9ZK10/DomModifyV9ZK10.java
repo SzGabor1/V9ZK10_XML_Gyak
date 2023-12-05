@@ -30,7 +30,7 @@ public class DomModifyV9ZK10 {
             vasarlo.getElementsByTagName("varos").item(0).setTextContent("Budapest");
 
             // az első autós adatok árának módosítása
-            NodeList autosAdatokList = doc.getElementsByTagName("Autos_adatok");
+            NodeList autosAdatokList = doc.getElementsByTagName("AutosAdatok");
             Element autosAdatok = (Element) autosAdatokList.item(0);
             autosAdatok.getElementsByTagName("ar").item(0).setTextContent("600000");
 

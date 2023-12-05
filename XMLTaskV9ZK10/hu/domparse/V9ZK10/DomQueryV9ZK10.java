@@ -12,6 +12,7 @@ import org.xml.sax.SAXException;
 
 public class DomQueryV9ZK10 {
     public static void main(String argv[]) throws SAXException, IOException, ParserConfigurationException {
+        // Betöltjük az XML fájlt
         File xmlFile = new File("XMLTaskV9ZK10\\ERV9ZK10.xml");
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -20,7 +21,7 @@ public class DomQueryV9ZK10 {
         org.w3c.dom.Document doc = dBuilder.parse(xmlFile);
         doc.getDocumentElement().normalize();
 
-        // Querying Vasarlo elements
+        // Vásárlók lekérdezése
         NodeList vasarloList = doc.getElementsByTagName("Vasarlo");
         System.out.println("\n----------Vásárlók----------");
 
@@ -30,17 +31,19 @@ public class DomQueryV9ZK10 {
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element element = (Element) node;
 
+                // Vásárló adatainak kinyerése
                 String email = element.getElementsByTagName("email_cim").item(0).getTextContent();
                 String name = element.getElementsByTagName("nev").item(0).getTextContent();
                 NodeList phoneNumbers = element.getElementsByTagName("Telefonszam");
 
-                // Extracting address information
+                // Cím információ kinyerése
                 Element cimElement = (Element) element.getElementsByTagName("cim").item(0);
                 String orszag = cimElement.getElementsByTagName("orszag").item(0).getTextContent();
                 String isz = cimElement.getElementsByTagName("isz").item(0).getTextContent();
                 String varos = cimElement.getElementsByTagName("varos").item(0).getTextContent();
                 String uHsz = cimElement.getElementsByTagName("uHsz").item(0).getTextContent();
 
+                // Adataink kiírása
                 System.out.println("Email: " + email);
                 System.out.println("Név: " + name);
                 System.out.println("Cím: " + orszag + ", " + isz + " " + varos + ", " + uHsz);
@@ -55,7 +58,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying AutosCeg elements
+        // Autós cégek lekérdezése
         NodeList autosCegList = doc.getElementsByTagName("AutosCeg");
         System.out.println("\n----------Autós cégek----------");
 
@@ -76,7 +79,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying AutosAdatok elements
+        // Autós adatok lekérdezése
         NodeList autosAdatokList = doc.getElementsByTagName("AutosAdatok");
         System.out.println("\n----------Autós adatok----------");
 
@@ -94,14 +97,14 @@ public class DomQueryV9ZK10 {
 
                 System.out.println("Forgalmi Kód: " + forgalmiKod);
                 System.out.println("Cég kód: " + adatokCompanyCode);
-                System.out.println("Price: " + price);
+                System.out.println("Ár: " + price);
                 System.out.println("KM: " + km);
-                System.out.println("Status: " + status);
+                System.out.println("Státusz: " + status);
                 System.out.println();
             }
         }
 
-        // Querying AutosTipus elements
+        // Autós típusok lekérdezése
         NodeList autosTipusList = doc.getElementsByTagName("AutosTipus");
         System.out.println("\n----------Autós típusok----------");
 
@@ -126,7 +129,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying Vasarlas elements
+        // Vásárlások lekérdezése
         NodeList vasarlasList = doc.getElementsByTagName("Vasarlas");
         System.out.println("\n----------Vásárlások----------");
 
@@ -149,7 +152,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying Szamlazas elements where vegosszeg is greater than 60.000
+        // Számlázások lekérdezése, ahol a végösszeg nagyobb mint 60.000
         NodeList szamlazasList = doc.getElementsByTagName("Szamlazas");
         System.out.println("\n----------Számlázások ami nagyobb mint 60.000----------");
 
@@ -177,7 +180,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying Autós_adatok and Autós_tipus for 1:1 relationship
+        // Autós_adatok és Autós_tipus lekérdezése 1:1 kapcsolatban
         NodeList autosAdatokList2 = doc.getElementsByTagName("AutosAdatok");
         System.out.println("\n----------Autós adatok és az azokhoz tartozó típusok----------");
 
@@ -192,7 +195,7 @@ public class DomQueryV9ZK10 {
                 String AutosAdatok = autosAdatokElement.getElementsByTagName("kmOra").item(0).getTextContent();
                 String status = autosAdatokElement.getElementsByTagName("statusz").item(0).getTextContent();
 
-                // Querying AutosTipus for the same forgalmiKod
+                // Autós_tipus lekérdezése ugyanazzal a forgalmi_koddal
                 NodeList autosTipusList2 = doc.getElementsByTagName("AutosTipus");
                 for (int j = 0; j < autosTipusList2.getLength(); j++) {
                     Node autosTipusNode = autosTipusList2.item(j);
@@ -221,7 +224,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying AutosCeg and AutosAdatok for 1:n relationship
+        // Autós_cégek és Autós_adatok lekérdezése 1:n kapcsolatban
         NodeList autosCegList1 = doc.getElementsByTagName("AutosCeg");
         System.out.println("\n----------Autós cégek és az azokhoz tartozó adatok----------");
 
@@ -233,7 +236,7 @@ public class DomQueryV9ZK10 {
                 String companyCode = autosCegElement.getAttribute("ceg_kod");
                 String companyName = autosCegElement.getElementsByTagName("cegnev").item(0).getTextContent();
 
-                // Querying AutosAdatok for the same ceg_kod
+                // Autós_adatok lekérdezése ugyanazzal a ceg_koddal
                 NodeList autosAdatokList1 = doc.getElementsByTagName("AutosAdatok");
                 for (int j = 0; j < autosAdatokList1.getLength(); j++) {
                     Node autosAdatokNode = autosAdatokList1.item(j);
@@ -260,7 +263,7 @@ public class DomQueryV9ZK10 {
             }
         }
 
-        // Querying Vasarlo and Vasarlas for n:m relationship
+        // Vásárló és vásárlás lekérdezése n:m kapcsolattal
         NodeList vasarloList1 = doc.getElementsByTagName("Vasarlo");
         System.out.println("\n----------Vásárlók és az azokhoz tartozó vásárlások----------");
 
@@ -273,7 +276,7 @@ public class DomQueryV9ZK10 {
                 String vasarloEmail = vasarloElement.getElementsByTagName("email_cim").item(0).getTextContent();
                 String vasarloName = vasarloElement.getElementsByTagName("nev").item(0).getTextContent();
 
-                // Querying Vasarlas for the same vasarlo_kod
+                // Vásárlások lekérdezése azonos vásárló_kód alapján
                 NodeList vasarlasList1 = doc.getElementsByTagName("Vasarlas");
                 for (int j = 0; j < vasarlasList1.getLength(); j++) {
                     Node vasarlasNode = vasarlasList1.item(j);
