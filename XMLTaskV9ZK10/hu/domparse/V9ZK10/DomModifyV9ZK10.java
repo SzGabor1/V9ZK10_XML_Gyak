@@ -1,4 +1,4 @@
-package domparse;
+package hu.domparse.V9ZK10;
 
 import java.io.File;
 
