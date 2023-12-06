@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<AutosCegERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance"
-    xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
+<AutosCegERV9ZK10 xmlns:xs="http://www.w3.org/2001/XMLSchema-instance" xs:noNamespaceSchemaLocation="ERV9ZK10.xsd">
     <Vasarlo jogkod="01">
         <email_cim>jane.smith456@example.com</email_cim>
         <cim>
